@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BayaRings Designed Silver Rings</title>
+	<meta name="description" content="Baya Gorbusha personally designed silver rings finally here!" />
+	<meta property="og:site_name" content="BayaRings" />
+	<meta property="og:title" content="BayaRings" />
+	<meta property="og:type" content="website" /><meta property="og:description" content="Baya Gorbusha personally designed silver rings finally here!" />
+	<meta property="og:image" content="bayarings.png" /><meta property="og:image:type" content="image/jpeg" />
+	<meta property="og:image:width" content="1280" /><meta property="og:image:height" content="800" />
+	<meta property="og:url" content="https://www.bayarings.com/" /><meta property="twitter:card" content="summary_large_image" />
+	<link rel="canonical" href="https://www.bayarings.com/" />
+    <style>
+	
+	/* Importing luxurious Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Raleway:wght@300;400;700&family=Montserrat:wght@300;500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat';
+            color: #333;
+            background-color: #f8f4f0; /* Neutral background for luxury feel */
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+		
+        .container1 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container2 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container3 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container4 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+			position: relative;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+		@keyframes moveSlowly {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px); /* Moves 10px to the right */
+    }
+    100% {
+        transform: translateX(0); /* Returns to the original position */
+    }
+}
+		.top-right {
+			position: absolute;
+			right: 10px; /* Adjust this value to move the image more to the left */
+}
+		.top-right img {
+			max-width: 50px; /* Adjust the size of the image */
+			height: auto;    /* Maintain aspect ratio */
+			cursor: pointer;
+			animation: moveSlowly 3s ease-in-out infinite; /* Apply animation */
+
+		}
+        .product-slider {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .product-image {
+            flex: 3;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+        .image-thumbnails {
+            /* flex: 1; removed so that bigger photo and less blank space on the right */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .image-thumbnails img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .image-thumbnails img.selected {
+            border: 2px solid #3498db;
+        }
+        .product-details {
+            margin-top: 20px;
+        }
+        .finally {
+			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #585656; /* brownish #8b6f55 */
+        }
+        .features {
+			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+            font-size: 3em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #585656;
+        }
+		
+		.about {		
+            font-size: 1.5em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #585656;
+        }
+        .product-price {
+			font-family: 'Raleway', sans-serif; /* Modern luxury */
+            font-size: 1.5em;
+            color: #a9805c;;
+            font-weight: bold;
+        }
+        .buy-now {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .buy-now:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9em;
+        }
+        a {
+            color: #a9805c;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Zoom effect */
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoomed-image {
+            position: absolute;
+            top: 100px; /* Adjusted to appear right below the logo */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0.2s ease;
+            visibility: hidden;
+            z-index: 100;
+        }
+
+        .product-image:hover .zoomed-image {
+            visibility: visible;
+            transform: scale(2);
+        }
+		
+		.logo img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style-type: none; /* Removes bullets */
+    padding: 0;           /* Removes padding */
+    margin: 0;            /* Removes margin */
+}
+
+
+@media (max-width: 768px) {
+    .logo img {
+        max-width: 230px; /* Adjust as needed for tablets */
+    }
+}
+
+@media (max-width: 480px) {
+    .logo img {
+        max-width: 150px; /* Adjust as needed for mobile devices */
+    }
+	.top-right img {
+		max-width: 40px;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container1">
+        <header>
+            <div class="logo" id="logo"><a target="_blank" href="https://www.bayarings.net" class="frame"><img src="bayarings.png" alt="BayaRings" /></a></div>
+			<div class="top-right"><a target="_blank" href="https://www.instagram.com/bayagorbusha/"><img src="instagram-bayagorbusha.png" alt="Instagram @BayaGorbusha" /></a></div>
+        </header>
+        <div class="product-slider">
+            <div class="product-image" id="product-image">
+                <div class="zoom-container">
+                    <img id="mainImage" src="1.jpg" alt="Product Image">
+                    <img id="zoomedImage" src="1.jpg" alt="Zoomed Image" class="zoomed-image">
+                </div>
+            </div>
+            <div class="image-thumbnails" id="thumbnails">
+                <!-- Thumbnails dynamically populated by JavaScript -->
+            </div>
+        </div>
+	</div>
+	<div class="container2">
+        <div class="product-details">
+            <h1 class="finally">Finally!</h1>
+            <p class="about">
+                So many people asking me where to get my silver rings. Finally I'll be able to give a good answer. This is completely my own design and cannot wait to share it with you.
+			</p>
+		</div>
+	</div>
+	<div class="container3">
+			<h1 class="features">Features</h1>
+			<ul class="about">
+			<li><b>◎</b> My complete own design</li>
+			<li><b>◎</b> High quality 925 silver</li>
+			<li><b>◎</b> I'm a proud Kalmyk and outside I engraved the word for "filled with happiness" <b>ᠵᠠᠷᠬᠠᠯᠲᠠᠶ</b> (Jargaltai) in our original writing form Todo Bichig (Oirat script). It's written vertically from top to bottom.</li>
+			<li><b>◎</b> I signed it too, my signature is engraved inside.</li>
+			</ul>
+	</div>
+	<div class="container4">
+			<h1 class="features">Price</h1>
+            <p class="product-price">I still haven't decided on the price and launch date, but it's pretty soon. However, in the meantime  you still have the opportunity to reserve your 20% OFF discount code.</p>
+			<script id="form-script-tag-15697445" src="https://baya.systeme.io/public/remote/page/24579745b981f961cc1499f7a3ced47edf634d90.js"></script>
+			<div style="text-align: center;margin-top:20px;">
+			<img src="mysignature.png" alt="My signature" style="width: 20%; height: auto; display: inline;">
+			</div>
+    </div>
+		
+			
+
+		
+        <footer>
+            © 2024, BayaRings | Contact: <a href="https://www.instagram.com/bayagorbusha/" target="_blank">@bayagorbusha</a> | <a href="https://www.bayarings.com/privacy-policy" target="_blank">Privacy Policy</a>
+        </footer>
+
+
+    <script>
+        // Image slider logic
+        const images = [
+            "1.jpg",
+            "2.jpg",
+            "3.jpg",
+            "4.png",
+            "5.jpg"
+        ];
+
+        const mainImage = document.getElementById("mainImage");
+        const zoomedImage = document.getElementById("zoomedImage");
+        const thumbnails = document.getElementById("thumbnails");
+
+        // Populate thumbnails
+        images.forEach((src, index) => {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = `Thumbnail ${index + 1}`;
+            if (index === 0) {
+                img.classList.add("selected");
+            }
+
+            img.addEventListener("click", () => {
+                mainImage.src = src;
+                zoomedImage.src = src;
+                document.querySelectorAll(".image-thumbnails img").forEach(thumb => thumb.classList.remove("selected"));
+                img.classList.add("selected");
+            });
+            thumbnails.appendChild(img);
+        });
+
+        // Zoom effect on hover
+        const productImage = document.getElementById('product-image');
+        productImage.addEventListener('mousemove', (e) => {
+            const bounds = productImage.getBoundingClientRect();
+            const x = e.clientX - bounds.left;
+            const y = e.clientY - bounds.top;
+
+            // Calculate the position of the zoomed image relative to mouse position
+            const offsetX = (x / bounds.width) * 100;
+            const offsetY = (y / bounds.height) * 100;
+
+            // Set zoom position to follow the mouse
+            zoomedImage.style.transformOrigin = `${offsetX}% ${offsetY}%`;
+            zoomedImage.style.transform = `scale(2)`;
+            zoomedImage.style.visibility = "visible";
+        });
+
+        // Reset zoom when mouse leaves the image
+        productImage.addEventListener('mouseleave', () => {
+            zoomedImage.style.transform = "scale(1)";
+            zoomedImage.style.visibility = "hidden";
+        });
+    </script>
+</body>
+</html>
