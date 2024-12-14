@@ -1,375 +1,349 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-	
-	/* Importing luxurious Google Fonts */
-        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Raleway:wght@300;400;700&family=Montserrat:wght@300;500;700&display=swap');
-
-        body {
-            font-family: 'Montserrat';
-            color: #333;
-            background-color: #f8f4f0; /* Neutral background for luxury feel */
-            margin: 0;
-            padding: 20px;
-            line-height: 1.6;
-        }
-		
-        .container1 {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-		.container3d {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        .viewer {
-            width: 100%;
-            height: 500px;
-            background-color: #f8f4f0 !important; /* Beige background #ccb8a7 */
-            border-radius: 10px;
-        }
-		.container2 {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-		.container3 {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-		.container4 {
-            max-width: 800px;
-            margin: 20px auto;
-            background: #fff;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-			position: relative;
-        }
-        .logo {
-            font-size: 1.5em;
-            font-weight: bold;
-            color: #333;
-        }
-		@keyframes moveSlowly {
-    0% {
-        transform: translateX(0);
-    }
-    50% {
-        transform: translateX(10px); /* Moves 10px to the right */
-    }
-    100% {
-        transform: translateX(0); /* Returns to the original position */
-    }
+/* Importing luxurious Google Fonts */
+@import url('https://fonts.googleapis.com/css2?
+family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Raleway:wght@300;400;700&family=Montserrat:wght@300;500;700&display=swap');
+body {
+font-family: 'Montserrat';
+color: #333;
+background-color: #f8f4f0; /* Neutral background for luxury feel */
+margin: 0;
+padding: 20px;
+line-height: 1.6;
 }
-		.top-right {
-			position: absolute;
-			right: 10px; /* Adjust this value to move the image more to the left */
+.container1 {
+max-width: 800px;
+margin: 20px auto;
+background: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
-		.top-right img {
-			max-width: 50px; /* Adjust the size of the image */
-			height: auto;    /* Maintain aspect ratio */
-			cursor: pointer;
-			animation: moveSlowly 3s ease-in-out infinite; /* Apply animation */
-
-		}
-        .product-slider {
-            display: flex;
-            gap: 10px;
-            align-items: flex-start;
-            margin-top: 20px;
-        }
-        .product-image {
-            flex: 3;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-        .product-image img {
-            max-width: 100%;
-            border-radius: 10px;
-            object-fit: cover;
-            transition: transform 0.2s ease;
-        }
-        .image-thumbnails {
-            /* flex: 1; removed so that bigger photo and less blank space on the right */
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .image-thumbnails img {
-            width: 70px;
-            height: 70px;
-            object-fit: cover;
-            border-radius: 5px;
-            cursor: pointer;
-            border: 2px solid transparent;
-        }
-        .image-thumbnails img.selected {
-            border: 2px solid #3498db;
-        }
-        .product-details {
-            margin-top: 20px;
-        }
-        .finally {
-			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
-            font-size: 3em;
-            margin-bottom: 10px;
-            color: #585656; /* brownish #8b6f55 */
-        }
-        .features {
-			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
-            font-size: 3em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #585656;
-        }
-		
-		.about {		
-            font-size: 1.5em;
-            line-height: 1.6;
-            margin-bottom: 20px;
-            color: #585656;
-        }
-        .product-price {
-			font-family: 'Raleway', sans-serif; /* Modern luxury */
-            font-size: 1.5em;
-            color: #a9805c;;
-            font-weight: bold;
-        }
-        .buy-now {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1em;
-            color: #fff;
-            background-color: #3498db;
-            border: none;
-            border-radius: 5px;
-            text-align: center;
-            cursor: pointer;
-            text-decoration: none;
-        }
-        .buy-now:hover {
-            background-color: #2980b9;
-        }
-        footer {
-            text-align: center;
-            margin-top: 30px;
-            color: #777;
-            font-size: 0.9em;
-        }
-        a {
-            color: #a9805c;
-            text-decoration: none;
-        }
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Zoom effect */
-        .zoom-container {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .zoomed-image {
-            position: absolute;
-            top: 100px; /* Adjusted to appear right below the logo */
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transform: scale(1);
-            transition: transform 0.2s ease;
-            visibility: hidden;
-            z-index: 100;
-        }
-
-        .product-image:hover .zoomed-image {
-            visibility: visible;
-            transform: scale(2);
-        }
-		
-		.logo img {
-    max-width: 50%;
-    height: auto;
-    display: block;
+.container3d {
+max-width: 800px;
+margin: 20px auto;
+background: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+text-align: center;
 }
-
+.viewer {
+width: 100%;
+height: 500px;
+background-color: #f8f4f0 !important; /* Beige background #ccb8a7 */
+border-radius: 10px;
+}
+.container2 {
+max-width: 800px;
+margin: 20px auto;
+background: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.container3 {
+max-width: 800px;
+margin: 20px auto;
+background: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.container4 {
+max-width: 800px;
+margin: 20px auto;
+background: #fff;
+padding: 20px;
+border-radius: 10px;
+box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+header {
+display: flex;
+justify-content: space-between;
+align-items: center;
+position: relative;
+}
+.logo {
+font-size: 1.5em;
+font-weight: bold;
+color: #333;
+}
+@keyframes moveSlowly {
+0% {
+transform: translateX(0);
+}
+50% {
+transform: translateX(10px); /* Moves 10px to the right */
+}
+100% {
+transform: translateX(0); /* Returns to the original position */
+}
+}
+.top-right {
+position: absolute;
+right: 10px; /* Adjust this value to move the image more to the left */
+}
+.top-right img {
+max-width: 50px; /* Adjust the size of the image */
+height: auto; /* Maintain aspect ratio */
+cursor: pointer;
+animation: moveSlowly 3s ease-in-out infinite; /* Apply animation */
+}
+.product-slider {
+display: flex;
+gap: 10px;
+align-items: flex-start;
+margin-top: 20px;
+}
+.product-image {
+flex: 3;
+text-align: center;
+position: relative;
+overflow: hidden;
+}
+.product-image img {
+max-width: 100%;
+border-radius: 10px;
+object-fit: cover;
+transition: transform 0.2s ease;
+}
+.image-thumbnails {
+/* flex: 1; removed so that bigger photo and less blank space on the right */
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+.image-thumbnails img {
+width: 70px;
+height: 70px;
+object-fit: cover;
+border-radius: 5px;
+cursor: pointer;
+border: 2px solid transparent;
+}
+.image-thumbnails img.selected {
+border: 2px solid #3498db;
+}
+.product-details {
+margin-top: 20px;
+}
+.finally {
+font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+font-size: 3em;
+margin-bottom: 10px;
+color: #585656; /* brownish #8b6f55 */
+}
+.features {
+font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+font-size: 3em;
+line-height: 1.6;
+margin-bottom: 20px;
+color: #585656;
+}
+.about {
+font-size: 1.5em;
+line-height: 1.6;
+margin-bottom: 20px;
+color: #585656;
+}
+.product-price {
+font-family: 'Raleway', sans-serif; /* Modern luxury */
+font-size: 1.5em;
+color: #a9805c;;
+font-weight: bold;
+}
+.buy-now {
+display: inline-block;
+margin-top: 20px;
+padding: 10px 20px;
+font-size: 1em;
+color: #fff;
+background-color: #3498db;
+border: none;
+border-radius: 5px;
+text-align: center;
+cursor: pointer;
+text-decoration: none;
+}
+.buy-now:hover {
+background-color: #2980b9;
+}
+footer {
+text-align: center;
+margin-top: 30px;
+color: #777;
+font-size: 0.9em;
+}
+a {
+color: #a9805c;
+text-decoration: none;
+}
+footer a:hover {
+text-decoration: underline;
+}
+/* Zoom effect */
+.zoom-container {
+position: relative;
+overflow: hidden;
+}
+.zoomed-image {
+position: absolute;
+top: 100px; /* Adjusted to appear right below the logo */
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+transform: scale(1);
+transition: transform 0.2s ease;
+visibility: hidden;
+z-index: 100;
+}
+.product-image:hover .zoomed-image {
+visibility: visible;
+transform: scale(2);
+}
+.logo img {
+max-width: 50%;
+height: auto;
+display: block;
+}
 ul {
-    list-style-type: none; /* Removes bullets */
-    padding: 0;           /* Removes padding */
-    margin: 0;            /* Removes margin */
+list-style-type: none; /* Removes bullets */
+padding: 0; /* Removes padding */
+margin: 0; /* Removes margin */
 }
-
-
 @media (max-width: 768px) {
-    .logo img {
-        max-width: 230px; /* Adjust as needed for tablets */
-    }
+.logo img {
+max-width: 230px; /* Adjust as needed for tablets */
 }
-
+}
 @media (max-width: 480px) {
-    .logo img {
-        max-width: 150px; /* Adjust as needed for mobile devices */
-    }
-	.top-right img {
-		max-width: 40px;
-	}
+.logo img {
+max-width: 150px; /* Adjust as needed for mobile devices */
+}
+.top-right img {
+max-width: 40px;
+}
 }
 .container3d .viewer {
-    background-color: #f8f4f0 !important;
-	transition: none; /* Disable any transition */
+background-color: #f8f4f0 !important;
+transition: none; /* Disable any transition */
 }
-    </style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 </head>
 <body>
-	<div class="container3d">
-        <h1 class="features">Interactive 3D View</h1>
-        <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
-        <div id="viewer" class="viewer"></div>
-    </div>
+<div class="container3d">
+<h1 class="features">Interactive 3D View</h1>
+<p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
+<div id="viewer" class="viewer"></div>
+</div>
 <script>
 // Three.js setup for 3D ring viewer
 const viewer = document.getElementById('viewer');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true,  // Enable anti-aliasing
-    precision: "highp" // Use high precision for rendering
+alpha: true,
+antialias: true, // Enable anti-aliasing
+precision: "highp" // Use high precision for rendering
 });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+renderer.setPixelRatio(window.devicePixelRatio); // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
-
-
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
-
 // Add ambient light for softer illumination (increased intensity for better visibility)
 const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Increase intensity for better ambient lighting
 scene.add(ambientLight);
-
 // Add a stronger directional light to illuminate the ring better
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity for more lighting
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
-
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
 const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
-
 // Set the texture as spherical reflection
 envMap.mapping = THREE.EquirectangularReflectionMapping;
-
 // Set the scene background to null, using only the environment map for reflections
 scene.background = null; // Only using the environment map for reflections
-
 // Load the .obj model
 const loader = new THREE.OBJLoader();
 loader.load(
-    'silver-ring.obj',
-    (object) => {
-        scene.add(object);
-        object.position.set(0, 0, 0);
-        object.rotation.x = Math.PI / 2; // Adjust orientation
-        object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-        // Traverse the loaded object and apply material properties for a shiny, metallic finish
-        object.traverse((child) => {
-            if (child.isMesh) {
-				// Create a new geometry and ensure it's in BufferGeometry format
-                const geometry = child.geometry;
-				// Compute vertex normals for smooth shading
-                geometry.computeVertexNormals();
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0, // Very low roughness for high gloss (shiny surface)
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-            }
-        });
-    },
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-    },
-    (error) => {
-        console.error('An error occurred while loading the .obj file.', error);
-    }
+'silver-ring.obj',
+(object) => {
+scene.add(object);
+object.position.set(0, 0, 0);
+object.rotation.x = Math.PI / 2; // Adjust orientation
+object.scale.set(0.5, 0.5, 0.5); // Adjust size
+// Traverse the loaded object and apply material properties for a shiny, metallic finish
+object.traverse((child) => {
+if (child.isMesh) {
+// Apply a reflective, shiny silver material
+child.material = new THREE.MeshPhysicalMaterial({
+color: 0xC0C0C0, // Silver color
+metalness: 1, // Fully metallic (metallic material)
+roughness: 0, // Very low roughness for high gloss (shiny surface)
+emissive: 0x0, // No glowing effect
+envMap: envMap, // Reflections from the environment map
+envMapIntensity: 1.5, // Increased reflection intensity for the silver look
+clearcoat: 1, // Clearcoat for added shine
+clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
+reflectivity: 1 // Maximum reflectivity for a polished surface
+});
+}
+});
+},
+(xhr) => {
+console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+},
+(error) => {
+console.error('An error occurred while loading the .obj file.', error);
+}
 );
-
+//smooth normals
+setSmoothGeometry(loader)
+function setSmoothGeometry(obj) {
+obj.traverse(node => {
+if ('geometry' in node) {
+const tempGeometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
+tempGeometry.mergeVertices();
+tempGeometry.computeVertexNormals();
+node.geometry = new THREE.BufferGeometry().fromGeometry( tempGeometry );
+}
+})
+}
 // Set camera position
 camera.position.z = 20;
-
 // Add OrbitControls to allow rotation
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;  // Adds smooth movement
-controls.dampingFactor = 0.25;  // Controls the smoothness
+controls.enableDamping = true; // Adds smooth movement
+controls.dampingFactor = 0.25; // Controls the smoothness
 controls.screenSpacePanning = false; // Prevents panning in screen space
-
 // Animation loop
 function animate() {
-    requestAnimationFrame(animate);
-    controls.update(); // Update controls for smoothness
-    renderer.render(scene, camera);
+requestAnimationFrame(animate);
+controls.update(); // Update controls for smoothness
+renderer.render(scene, camera);
 }
-
 animate();
-
 // Responsive resizing
 window.addEventListener('resize', () => {
-    const width = viewer.clientWidth;
-    const height = viewer.clientHeight;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
+const width = viewer.clientWidth;
+const height = viewer.clientHeight;
+renderer.setSize(width, height);
+camera.aspect = width / height;
+camera.updateProjectionMatrix();
 });
-
 // Set the background color of the viewer div to #f8f4f0
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
-
-
-
-
 </body>
 </html>
