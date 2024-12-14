@@ -421,17 +421,17 @@ loader.load(
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
-                // Apply a more realistic silver material with lower reflectivity and roughness
+                // Apply a more realistic silver material with adjusted roughness and reflectivity
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.2,  // Slightly rougher for a more natural silver look
+                    roughness: 0.1,  // Low roughness for a smoother surface, more shiny
                     emissive: 0x0,    // No glowing effect
                     envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 0.5, // Lower intensity for a subtler reflection
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0.03, // Smooth clearcoat layer for glossiness
-                    reflectivity: 0.4   // Reduced reflectivity to avoid a mirror effect
+                    envMapIntensity: 0.5, // Lower intensity for a more subtle reflection
+                    reflectivity: 0.3,  // Lower reflectivity for polished silver, not mirror-like
+                    clearcoat: 0.9,    // Clearcoat for additional smooth gloss
+                    clearcoatRoughness: 0.05, // Very smooth clearcoat layer for glossiness
                 });
             }
         });
