@@ -374,11 +374,10 @@ ul {
 
 
 <script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.module.js';
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/controls/OrbitControls.js';
-    import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/loaders/RGBELoader.js';
+    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.module.js';  // Correct URL for three.js module
+    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/controls/OrbitControls.js';  // Correct URL for OrbitControls
+    import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/loaders/RGBELoader.js';  // Correct URL for RGBELoader
 
-    // Your code starts here...
     const viewer = document.getElementById('viewer');
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
