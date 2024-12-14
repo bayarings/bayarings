@@ -259,7 +259,6 @@ ul {
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.150.0/examples/js/loaders/HDRCubeTextureLoader.js"></script>
 
 
 </head>
@@ -375,7 +374,88 @@ ul {
             zoomedImage.style.visibility = "hidden";
         });
     </script>
+	<script>
+// Three.js setup for 3D ring viewer
+const viewer = document.getElementById('viewer');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({ alpha:true });
 
+renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+viewer.appendChild(renderer.domElement);
+
+// Add lighting
+const ambientLight = new THREE.AmbientLight(0xaaaaaa); // Soft ambient light
+scene.add(ambientLight);
+
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Brighter directional light for highlights
+directionalLight.position.set(5, 10, 7.5);
+scene.add(directionalLight);
+// Load the .obj model
+const loader = new THREE.OBJLoader();
+loader.load(
+    'bayarings.obj',
+    (object) => {
+        scene.add(object);
+        object.position.set(0, 0, 0);
+        object.rotation.x = Math.PI / 2; // Adjust orientation
+        object.scale.set(0.5, 0.5, 0.5); // Adjust size
+
+        // Make the material fully glossy and shiny
+        object.traverse((child) => {
+            if (child.isMesh) {
+                // Create a highly glossy and shiny silver material
+                child.material = new THREE.MeshStandardMaterial({
+                    color: 0xC0C0C0,          // Silver color
+                    metalness: 1,            // Fully metallic
+                    roughness: 0,            // Smooth surface for maximum glossiness
+                    emissive: 0xaaaaaa,      // Subtle glowing effect
+                    envMapIntensity: 2,      // Stronger reflection for shininess
+                    clearcoat: 1,            // Maximum glossiness with extra clear coat
+                    clearcoatRoughness: 0,   // Smooth clear coat for maximum shine
+                });
+            }
+        });
+    },
+    (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    },
+    (error) => {
+        console.error('An error occurred while loading the .obj file.', error);
+    }
+);
+
+
+// Set camera position
+camera.position.z = 20;
+
+// Add OrbitControls
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;  // Adds smooth movement
+controls.dampingFactor = 0.25;  // Controls the smoothness
+controls.screenSpacePanning = false; // Prevents panning in screen space
+
+// Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update(); // Update controls for smoothness
+    renderer.render(scene, camera);
+}
+
+animate();
+
+// Responsive resizing
+window.addEventListener('resize', () => {
+    const width = viewer.clientWidth;
+    const height = viewer.clientHeight;
+    renderer.setSize(width, height);
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+});
+
+document.querySelector('.viewer').style.backgroundColor = "#f5f5dc";
+
+</script>
 
 </body>
 </html>
