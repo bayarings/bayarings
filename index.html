@@ -406,7 +406,13 @@ loader.load(
             if (child.isMesh) {
                 // Create a highly glossy and shiny silver material
                 child.material = new THREE.MeshStandardMaterial({
-                  
+                    color: 0x000000,          // Silver color
+                    metalness: 1,            // Fully metallic
+                    roughness: 0,            // Smooth surface for maximum glossiness
+                    emissive: 0xaaaaaa,      // Subtle glowing effect
+                    envMapIntensity: 2,      // Stronger reflection for shininess
+                    clearcoat: 1,            // Maximum glossiness with extra clear coat
+                    clearcoatRoughness: 0,   // Smooth clear coat for maximum shine
                 });
             }
         });
