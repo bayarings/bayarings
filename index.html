@@ -386,17 +386,7 @@ loader.load(
         object.position.set(0, 0, 0);
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-        // Create an environment map for reflections
-        const textureLoader = new THREE.CubeTextureLoader();
-        const envMap = textureLoader.load([
-            'px.png', 'nx.png', 
-            'py.png', 'ny.png', 
-            'pz.png', 'nz.png'
-        ]);
-        scene.background = envMap; // Set the scene background to the environment map
-
-        // Make the material glossy and shiny
+// Make the material glossy and shiny
         object.traverse((child) => {
             if (child.isMesh) {
                 // Create a shiny metallic silver material
