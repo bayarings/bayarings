@@ -312,9 +312,6 @@ loader.load(
             if (child.isMesh) {
 				// Create a new geometry and ensure it's in BufferGeometry format
                 const geometry = child.geometry;
-				// Ensure the geometry is in BufferGeometry format
-                if (!child.geometry.isBufferGeometry) {
-                    child.geometry = new THREE.BufferGeometry().fromGeometry(child.geometry);
 				// Compute vertex normals for smooth shading
                 geometry.computeVertexNormals();
                 // Apply a reflective, shiny silver material
