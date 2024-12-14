@@ -390,13 +390,6 @@ renderer.setSize(viewer.clientWidth, viewer.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
 
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.5; // Adjust as needed
-
-
-const fxaaPass = new THREE.ShaderPass(THREE.FXAAShader);
-fxaaPass.material.uniforms['resolution'].value.set(1 / viewer.clientWidth, 1 / viewer.clientHeight);
-composer.addPass(fxaaPass);
 
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
