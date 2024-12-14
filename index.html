@@ -391,7 +391,6 @@ scene.add(ambientLight);
 const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Brighter directional light for highlights
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
-
 // Load the .obj model
 const loader = new THREE.OBJLoader();
 loader.load(
@@ -402,18 +401,18 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Make the material glossy and silver
+        // Make the material fully glossy and shiny
         object.traverse((child) => {
             if (child.isMesh) {
-                // Create a shiny silver material
+                // Create a highly glossy and shiny silver material
                 child.material = new THREE.MeshStandardMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic
-                    glossiness: 1,  // Low roughness for smooth, glossy appearance
-                    emissive: 0xaaaaaa, // Subtle glowing effect
-                    envMapIntensity: 1.5, // Reflectivity adjustment for shiny look
-                    clearcoat: 1,     // Adds an extra layer of glossiness
-                    clearcoatRoughness: 0.05 // Very smooth clear coat
+                    color: 0xC0C0C0,          // Silver color
+                    metalness: 1,            // Fully metallic
+                    roughness: 0,            // Smooth surface for maximum glossiness
+                    emissive: 0xaaaaaa,      // Subtle glowing effect
+                    envMapIntensity: 2,      // Stronger reflection for shininess
+                    clearcoat: 1,            // Maximum glossiness with extra clear coat
+                    clearcoatRoughness: 0,   // Smooth clear coat for maximum shine
                 });
             }
         });
@@ -426,8 +425,9 @@ loader.load(
     }
 );
 
+
 // Set camera position
-camera.position.z = 40;
+camera.position.z = 20;
 
 // Add OrbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
