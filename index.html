@@ -398,13 +398,16 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Moderate in
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
-// Create an environment map for reflections only (not as the background)
+// Load the panoramic textures and use them as an environment map
 const textureLoader = new THREE.CubeTextureLoader();
 const envMap = textureLoader.load([
     'px.png', 'nx.png', 
     'py.png', 'ny.png', 
     'pz.png', 'nz.png'
 ]);
+
+// Set the spherical mapping for environment reflections
+envMap.mapping = THREE.SphericalReflectionMapping;
 
 // Set the scene background to null, using only the environment map for reflections
 scene.background = null; // Only using the environment map for reflections
@@ -474,6 +477,7 @@ window.addEventListener('resize', () => {
 // Set the background color of the viewer div to #f8f4f0
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
+
 
 
 
