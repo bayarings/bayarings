@@ -409,7 +409,7 @@ loader.load(
                 child.material = new THREE.MeshStandardMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
-                    roughness: 0.1,  // Low roughness for smooth, glossy appearance
+                    glossiness: 1,  // Low roughness for smooth, glossy appearance
                     emissive: 0xaaaaaa, // Subtle glowing effect
                     envMapIntensity: 1.5, // Reflectivity adjustment for shiny look
                     clearcoat: 1,     // Adds an extra layer of glossiness
@@ -427,7 +427,7 @@ loader.load(
 );
 
 // Set camera position
-camera.position.z = 50;
+camera.position.z = 40;
 
 // Add OrbitControls
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
