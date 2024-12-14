@@ -383,7 +383,9 @@ const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
 const renderer = new THREE.WebGLRenderer({ alpha:true });
 
-renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+// Increase renderer resolution for better quality
+renderer.setSize(viewer.clientWidth * 2, viewer.clientHeight * 2); // Double the resolution
+
 viewer.appendChild(renderer.domElement);
 
 // Set background color to #f8f4f0 (soft light color)
@@ -400,7 +402,7 @@ scene.add(directionalLight);
 
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('overcast_soil_puresky'); // Replace with your actual panoramic image path
+const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
 // Set the texture as spherical reflection
 envMap.mapping = THREE.EquirectangularReflectionMapping;
@@ -475,121 +477,6 @@ window.addEventListener('resize', () => {
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
 
-<script>
-// Three.js setup for 3D ring viewer
-const viewer = document.getElementById('viewer');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
-
-// Ensure high-quality rendering on all displays
-const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true,  // Enable anti-aliasing
-    precision: "highp" // Use high precision for rendering
-});
-renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
-viewer.appendChild(renderer.domElement);
-
-// Set background color to #f8f4f0 (soft light color)
-scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
-
-// Add ambient light for softer illumination (increased intensity for better visibility)
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Increase intensity for better ambient lighting
-scene.add(ambientLight);
-
-// Add a stronger directional light to illuminate the ring better
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity for more lighting
-directionalLight.position.set(5, 10, 7.5);
-scene.add(directionalLight);
-
-// Load panoramic texture (single image for spherical reflections)
-const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load(
-    'overcast_soil_puresky.jpg', // Update this path if needed
-    () => {
-        console.log('Environment map loaded successfully');
-    },
-    undefined,
-    (err) => {
-        console.error('Error loading environment map:', err);
-    }
-);
-envMap.mapping = THREE.EquirectangularReflectionMapping;
-envMap.minFilter = THREE.LinearFilter;  // Disable mipmapping
-envMap.magFilter = THREE.LinearFilter;  // Use linear filtering for sharper results
-envMap.anisotropy = 16;  // Improve texture sharpness on high-DPI displays
-scene.background = null;  // Remove background, only reflections from the environment map
-
-// Load the .obj model
-const loader = new THREE.OBJLoader();
-loader.load(
-    'bayarings.obj',
-    (object) => {
-        scene.add(object);
-        object.position.set(0, 0, 0);
-        object.rotation.x = Math.PI / 2; // Adjust orientation
-        object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-        // Traverse the loaded object and apply material properties for a shiny, metallic finish
-        object.traverse((child) => {
-            if (child.isMesh) {
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.05, // Very low roughness for high gloss
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0.05, // Very smooth clearcoat layer
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-
-                // Smooth out the model
-                child.geometry.computeVertexNormals();  // Enable smooth shading
-            }
-        });
-    },
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-    },
-    (error) => {
-        console.error('An error occurred while loading the .obj file.', error);
-    }
-);
-
-// Set camera position
-camera.position.z = 20;
-
-// Add OrbitControls to allow rotation
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;  // Adds smooth movement
-controls.dampingFactor = 0.25;  // Controls the smoothness
-controls.screenSpacePanning = false; // Prevents panning in screen space
-
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update(); // Update controls for smoothness
-    renderer.render(scene, camera);
-}
-
-animate();
-
-// Responsive resizing
-window.addEventListener('resize', () => {
-    const width = viewer.clientWidth;
-    const height = viewer.clientHeight;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-});
-
-// Set the background color of the viewer div to #f8f4f0
-document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
-</script>
 
 
 
