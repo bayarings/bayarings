@@ -390,10 +390,6 @@ renderer.setSize(viewer.clientWidth, viewer.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
 
-renderer.outputEncoding = THREE.sRGBEncoding;
-renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.2; // Adjust for brightness
-
 
 
 // Set background color to #f8f4f0 (soft light color)
