@@ -505,7 +505,16 @@ scene.add(directionalLight);
 
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
+const envMap = textureLoader.load(
+    'overcast_soil_puresky.jpg', // Update this path if needed
+    () => {
+        console.log('Environment map loaded successfully');
+    },
+    undefined,
+    (err) => {
+        console.error('Error loading environment map:', err);
+    }
+);
 envMap.mapping = THREE.EquirectangularReflectionMapping;
 envMap.minFilter = THREE.LinearFilter;  // Disable mipmapping
 envMap.magFilter = THREE.LinearFilter;  // Use linear filtering for sharper results
@@ -529,12 +538,12 @@ loader.load(
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.05, // Very low roughness for high gloss (shiny surface)
+                    roughness: 0.05, // Very low roughness for high gloss
                     emissive: 0x0,    // No glowing effect
                     envMap: envMap,   // Reflections from the environment map
                     envMapIntensity: 1.5, // Increased reflection intensity for the silver look
                     clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0.05, // Very smooth clearcoat layer for glossiness
+                    clearcoatRoughness: 0.05, // Very smooth clearcoat layer
                     reflectivity: 1   // Maximum reflectivity for a polished surface
                 });
 
