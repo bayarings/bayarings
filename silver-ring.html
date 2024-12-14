@@ -309,25 +309,32 @@ loader.load(
 
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
-            if (child.isMesh) {
-				// Create a new geometry and ensure it's in BufferGeometry format
-                const geometry = child.geometry;
-				// Compute vertex normals for smooth shading
-                geometry.computeVertexNormals();
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0, // Very low roughness for high gloss (shiny surface)
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-            }
+    if (child.isMesh) {
+        const geometry = child.geometry;
+
+        // Convert geometry to BufferGeometry if not already
+        if (!(geometry instanceof THREE.BufferGeometry)) {
+            geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+        }
+
+        // Compute vertex normals for smooth shading
+        geometry.computeVertexNormals();
+
+        // Apply a shiny, reflective material
+        child.material = new THREE.MeshPhysicalMaterial({
+            color: 0xC0C0C0, // Silver color
+            metalness: 1,    // Fully metallic
+            roughness: 0,    // Smooth and shiny surface
+            emissive: 0x0,   // No emissive color
+            envMap: envMap,  // Environment reflections
+            envMapIntensity: 1.5, // Brightness of reflections
+            clearcoat: 1,    // Clearcoat for extra shine
+            clearcoatRoughness: 0, // Smooth clearcoat
+            reflectivity: 1  // Maximum reflectivity
         });
+    }
+});
+
     },
     (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
@@ -336,11 +343,6 @@ loader.load(
         console.error('An error occurred while loading the .obj file.', error);
     }
 );
-
-var tempGeometry = new THREE.Geometry().fromBufferGeometry( geometry );
-tempGeometry.mergeVertices();
-tempGeometry.computeVertexNormals();
-geometry = new THREE.BufferGeometry().fromGeometry( tempGeometry );
 
 // Set camera position
 camera.position.z = 20;
