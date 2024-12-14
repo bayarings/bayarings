@@ -415,19 +415,19 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Make the material glossy and silver with reflections
+        // Use MeshPhysicalMaterial for better handling of clearcoat properties
         object.traverse((child) => {
             if (child.isMesh) {
                 // Create a shiny silver material with environment map reflections
-                child.material = new THREE.MeshStandardMaterial({
+                child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
-                    roughness: 0.2,  // Slight roughness for reflections
+                    roughness: 0.5,  // Slight roughness to reduce brightness
                     emissive: 0xaaaaaa, // Subtle glowing effect
                     envMap: envMap,  // Apply the environment map for reflections
-                    envMapIntensity: 1.5, // Reflectivity adjustment for shiny look
+                    envMapIntensity: 0.8, // Reduce reflectivity to avoid excessive brightness
                     clearcoat: 1,     // Adds an extra layer of glossiness
-                    clearcoatRoughness: 0.05 // Very smooth clear coat
+                    clearcoatRoughness: 0.1 // Smooth clear coat
                 });
             }
         });
