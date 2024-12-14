@@ -393,7 +393,7 @@ scene.background = new THREE.Color(0xf8f4f0);
 const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.3); // Soft ambient light with lower intensity
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Brighter directional light for highlights
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Stronger directional light for highlights
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
@@ -418,19 +418,17 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Use MeshPhysicalMaterial for metallic and glossy appearance
+        // Use MeshStandardMaterial for shiny metallic silver appearance
         object.traverse((child) => {
             if (child.isMesh) {
                 // Create a fully metallic and glossy material with environment map reflections
-                child.material = new THREE.MeshPhysicalMaterial({
+                child.material = new THREE.MeshStandardMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
                     roughness: 0.01,  // Extremely low roughness for mirror-like finish (try 0 for perfect)
                     emissive: 0xaaaaaa, // Optional: glowing effect (can be removed)
                     envMap: envMap,  // Apply the environment map for reflections only
                     envMapIntensity: 1.5, // Use full intensity for reflections
-                    clearcoat: 1,     // Adds an extra layer of glossiness
-                    clearcoatRoughness: 0 // Smooth clear coat for maximum gloss
                 });
             }
         });
