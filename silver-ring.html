@@ -275,20 +275,6 @@ renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI display
 viewer.appendChild(renderer.domElement);
 
 
-
-
-
-
-const modifier = new THREE.SubdivisionModifier(2); // Level 2 subdivision
-const smoothedGeometry = modifier.modify(child.geometry);
-child.geometry = smoothedGeometry;
-
-
-import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier.js';
-
-
-
-
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
 
@@ -316,19 +302,17 @@ const loader = new THREE.OBJLoader();
 loader.load(
     'silver-ring.obj',
     (object) => {
-        scene.add(object);
-        object.position.set(0, 0, 0);
-        object.rotation.x = Math.PI / 2; // Adjust orientation
-        object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-        // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
-				// Create a new geometry and ensure it's in BufferGeometry format
-                const geometry = child.geometry;
-				// Compute vertex normals for smooth shading
-                geometry.computeVertexNormals();
-                // Apply a reflective, shiny silver material
+                // Ensure the geometry is in BufferGeometry format
+                if (!child.geometry.isBufferGeometry) {
+                    child.geometry = new THREE.BufferGeometry().fromGeometry(child.geometry);
+                }
+
+                // Compute smooth vertex normals
+                child.geometry.computeVertexNormals();
+
+                // Apply a shiny, smooth material
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
