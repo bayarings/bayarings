@@ -398,9 +398,9 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
-// Load panoramic texture (single image for spherical reflections)
+// Load your specific panoramic texture (sunflowers_puresky.jpg)
 const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('sunflowers_puresky.jpg'); // Replace with your actual panoramic image path
+const envMap = textureLoader.load('sunflowers_puresky.jpg'); // Use your actual panoramic image path
 
 // Set the texture as spherical reflection
 envMap.mapping = THREE.EquirectangularReflectionMapping;
@@ -421,17 +421,17 @@ loader.load(
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
-                // Apply a reflective, shiny silver material
+                // Apply a more realistic silver material with lower reflectivity and roughness
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.05, // Very low roughness for high gloss (shiny surface)
+                    roughness: 0.2,  // Slightly rougher for a more natural silver look
                     emissive: 0x0,    // No glowing effect
                     envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
+                    envMapIntensity: 0.5, // Lower intensity for a subtler reflection
                     clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0.01, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
+                    clearcoatRoughness: 0.03, // Smooth clearcoat layer for glossiness
+                    reflectivity: 0.4   // Reduced reflectivity to avoid a mirror effect
                 });
             }
         });
