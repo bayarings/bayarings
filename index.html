@@ -390,11 +390,11 @@ viewer.appendChild(renderer.domElement);
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
 
 // Add ambient light for softer illumination (increase intensity to make the ring visible)
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.6); // Increased intensity for better ambient lighting
+const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Reduced ambient light for subtle lighting
 scene.add(ambientLight);
 
 // Add a stronger directional light to illuminate the ring better
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Increased intensity for more lighting
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Adjusted intensity
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
@@ -402,7 +402,7 @@ scene.add(directionalLight);
 const textureLoader = new THREE.TextureLoader();
 const envMap = textureLoader.load('sunflowers_puresky.jpg'); // Use your actual panoramic image path
 
-// Set the texture as spherical reflection
+// Set the texture as spherical reflection (equirectangular)
 envMap.mapping = THREE.EquirectangularReflectionMapping;
 
 // Set the scene background to null, using only the environment map for reflections
@@ -421,17 +421,17 @@ loader.load(
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
-                // Apply a more realistic silver material with adjusted roughness and reflectivity
+                // Apply a polished silver material with adjusted roughness and reflectivity
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.05,  // Very low roughness for a smooth and highly polished surface
+                    roughness: 0.1,  // Low roughness for a polished look (but not too smooth)
                     emissive: 0x0,    // No glowing effect
                     envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased intensity for more noticeable reflection
-                    reflectivity: 0.6,  // Higher reflectivity for a more shiny appearance
-                    clearcoat: 1,    // Clearcoat for additional smooth gloss
-                    clearcoatRoughness: 0.02, // Very smooth clearcoat layer for extra glossiness
+                    envMapIntensity: 0.8, // Slightly reduced intensity for more realistic reflections
+                    reflectivity: 0.3,  // Lower reflectivity to make it look less like a mirror
+                    clearcoat: 0.8,    // Clearcoat for additional smooth gloss
+                    clearcoatRoughness: 0.05, // A bit of roughness for clearcoat to add depth
                 });
             }
         });
