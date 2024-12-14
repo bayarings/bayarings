@@ -34,6 +34,22 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
+		.container3d {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .viewer {
+            width: 100%;
+            height: 500px;
+            background-color: #f5f5dc; /* Beige background */
+            border-radius: 10px;
+        }
 		.container2 {
             max-width: 800px;
             margin: 20px auto;
@@ -237,6 +253,7 @@ ul {
 }
 
     </style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
     <div class="container1">
@@ -256,6 +273,11 @@ ul {
             </div>
         </div>
 	</div>
+	<div class="container3d">
+        <h1 class="features">Interactive 3D View</h1>
+        <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
+        <div id="viewer" class="viewer"></div>
+    </div>
 	<div class="container2">
         <div class="product-details">
             <h1 class="finally">Finally!</h1>
@@ -343,6 +365,61 @@ ul {
         productImage.addEventListener('mouseleave', () => {
             zoomedImage.style.transform = "scale(1)";
             zoomedImage.style.visibility = "hidden";
+        });
+    </script>
+	<script>
+        // Three.js setup for 3D ring viewer
+        const viewer = document.getElementById('viewer');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+
+        renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+        viewer.appendChild(renderer.domElement);
+
+        // Add lighting
+        const ambientLight = new THREE.AmbientLight(0xaaaaaa); // Soft light
+        scene.add(ambientLight);
+
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 0.5);
+        directionalLight.position.set(5, 10, 7.5);
+        scene.add(directionalLight);
+
+        // Load the .obj model
+        const loader = new THREE.OBJLoader();
+        loader.load(
+            'bayarings.obj',
+            (object) => {
+                scene.add(object);
+                object.position.set(0, 0, 0);
+                object.rotation.x = Math.PI / 2; // Adjust orientation
+                object.scale.set(0.5, 0.5, 0.5); // Adjust size
+            },
+            (xhr) => {
+                console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+            },
+            (error) => {
+                console.error('An error occurred while loading the .obj file.', error);
+            }
+        );
+
+        // Set camera position
+        camera.position.z = 5;
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Responsive resizing
+        window.addEventListener('resize', () => {
+            const width = viewer.clientWidth;
+            const height = viewer.clientHeight;
+            renderer.setSize(width, height);
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
         });
     </script>
 </body>
