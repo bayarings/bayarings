@@ -298,7 +298,8 @@ ul {
 			<ul class="about">
 			<li><b>◎</b> My complete own design</li>
 			<li><b>◎</b> High quality 925 silver</li>
-			<li><b>◎</b> I'm a proud Kalmyk and outside I engraved the word for "filled with happiness" <b>ᠵᠠᠷᠬᠠᠯᠲᠠᠶ</b> (Jargaltai) in our original writing form Todo Bichig (Oirat script). It's written vertically from top to bottom.</li>
+			<li><b>◎</b> I'm a proud Kalmyk and outside I engraved the word for filled with happiness <b id="play-audio" style="cursor: pointer;">ᠪᠠᠶᠠᠰᠬᠤᠯᠠᠩ</b><!-- Add the audio file -->
+    <audio id="audio" src="bayasqulang.mp3"></audio> (bayasqulang) in our original writing form Todo Bichig (Oirat script). It's written vertically from top to bottom.</li>
 			<li><b>◎</b> I signed it too, my signature is engraved inside.</li>
 			</ul>
 	</div>
@@ -317,7 +318,17 @@ ul {
         <footer>
             © 2024, BayaRings | Contact: <a href="https://www.instagram.com/bayagorbusha/" target="_blank">@bayagorbusha</a> | <a href="https://www.bayarings.com/privacy-policy" target="_blank">Privacy Policy</a>
         </footer>
+	<script>
+        // Get the elements
+        const audioElement = document.getElementById('audio');
+        const playButton = document.getElementById('play-audio');
 
+        // Add a click event listener to the <b> tag
+        playButton.addEventListener('click', () => {
+            audioElement.currentTime = 0; // Restart the audio from the beginning
+            audioElement.play(); // Play the audio
+        });
+    </script>
 
     <script>
         // Image slider logic
