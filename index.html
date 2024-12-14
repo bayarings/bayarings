@@ -256,6 +256,9 @@ ul {
 	transition: none; /* Disable any transition */
 }
     </style>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
 
 </head>
@@ -371,102 +374,61 @@ ul {
             zoomedImage.style.visibility = "hidden";
         });
     </script>
+	
+	
+	<script>
+// Load the .obj model
+const loader = new THREE.OBJLoader();
+loader.load(
+    'bayarings.obj',
+    (object) => {
+        scene.add(object);
+        object.position.set(0, 0, 0);
+        object.rotation.x = Math.PI / 2; // Adjust orientation
+        object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
+        // Create an environment map for reflections
+        const textureLoader = new THREE.CubeTextureLoader();
+        const envMap = textureLoader.load([
+            'path/to/posx.jpg', 'path/to/negx.jpg', 
+            'path/to/posy.jpg', 'path/to/negy.jpg', 
+            'path/to/posz.jpg', 'path/to/negz.jpg'
+        ]);
+        scene.background = envMap; // Set the scene background to the environment map
 
-<script type="module">
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.154.0/build/three.module.js';  // Correct URL for three.js module
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/controls/OrbitControls.js';  // Correct URL for OrbitControls
-    import { RGBELoader } from 'https://cdn.jsdelivr.net/npm/three@0.154.0/examples/jsm/loaders/RGBELoader.js';  // Correct URL for RGBELoader
+        // Make the material glossy and shiny
+        object.traverse((child) => {
+            if (child.isMesh) {
+                // Create a shiny metallic silver material
+                child.material = new THREE.MeshStandardMaterial({
+                    color: 0xC0C0C0,          // Silver color
+                    metalness: 1,            // Fully metallic
+                    roughness: 0,            // Smooth surface for maximum glossiness
+                    emissive: 0xaaaaaa,      // Subtle glowing effect
+                    envMap: envMap,          // Apply environment map for reflections
+                    envMapIntensity: 1.5,    // Adjust reflectivity for shininess
+                    clearcoat: 1,            // Maximum glossiness with extra clear coat
+                    clearcoatRoughness: 0,   // Smooth clear coat for maximum shine
+                });
+            }
+        });
 
-    const viewer = document.getElementById('viewer');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ alpha: true });
-
-    renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-    viewer.appendChild(renderer.domElement);
-
-    // Add lighting
-    const ambientLight = new THREE.AmbientLight(0xaaaaaa); // Soft ambient light
-    scene.add(ambientLight);
-
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Brighter directional light for highlights
-    directionalLight.position.set(5, 10, 7.5);
-    scene.add(directionalLight);
-
-    // Load the HDRI environment map
-    const rgbeLoader = new RGBELoader();
-    rgbeLoader.load(
-        'sunflowers_puresky_4k.hdr',  // Path to your HDRI file
-        (hdrEquirect) => {
-            scene.background = hdrEquirect;
-            scene.environment = hdrEquirect;
-
-            // Now load the .obj model after setting the environment
-            const loader = new THREE.OBJLoader();
-            loader.load(
-                'bayarings.obj',
-                (object) => {
-                    scene.add(object);
-                    object.position.set(0, 0, 0);
-                    object.rotation.x = Math.PI / 2; // Adjust orientation
-                    object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-                    object.traverse((child) => {
-                        if (child.isMesh) {
-                            child.material = new THREE.MeshStandardMaterial({
-                                color: 0xC0C0C0,
-                                metalness: 1,
-                                roughness: 0,
-                                emissive: 0xaaaaaa,
-                                envMapIntensity: 2,
-                                clearcoat: 1,
-                                clearcoatRoughness: 0,
-                            });
-                        }
-                    });
-                },
-                (xhr) => {
-                    console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-                },
-                (error) => {
-                    console.error('An error occurred while loading the .obj file.', error);
-                }
-            );
-        },
-        undefined,
-        (error) => {
-            console.error('An error occurred while loading the HDRI file', error);
-        }
-    );
-
-    camera.position.z = 20;
-
-    const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    controls.dampingFactor = 0.25;
-    controls.screenSpacePanning = false;
-
-    function animate() {
-        requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
+        // Add lighting to enhance shininess
+        const light = new THREE.AmbientLight(0xffffff, 1); // Ambient light to brighten the scene
+        scene.add(light);
+        const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Strong directional light for reflections
+        directionalLight.position.set(10, 10, 10).normalize();
+        scene.add(directionalLight);
+    },
+    (xhr) => {
+        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
+    },
+    (error) => {
+        console.error('An error occurred while loading the .obj file.', error);
     }
+);
 
-    animate();
-
-    window.addEventListener('resize', () => {
-        const width = viewer.clientWidth;
-        const height = viewer.clientHeight;
-        renderer.setSize(width, height);
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-    });
-
-    document.querySelector('.viewer').style.backgroundColor = "#f5f5dc";
-</script>
-
-
+	</script>
 
 </body>
 </html>
