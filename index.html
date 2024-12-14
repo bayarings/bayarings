@@ -374,7 +374,9 @@ ul {
             zoomedImage.style.visibility = "hidden";
         });
     </script>
-	<script>
+
+
+<script>
 // Three.js setup for 3D ring viewer
 const viewer = document.getElementById('viewer');
 const scene = new THREE.Scene();
@@ -392,6 +394,17 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Brighter di
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
+// Create an environment map for reflections
+const textureLoader = new THREE.CubeTextureLoader();
+const envMap = textureLoader.load([
+    'px.png', 'nx.png', 
+    'py.png', 'ny.png', 
+    'pz.png', 'nz.png'
+]);
+
+// Set the environment map to the scene background
+scene.background = envMap;
+
 // Load the .obj model
 const loader = new THREE.OBJLoader();
 loader.load(
@@ -402,15 +415,16 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Make the material glossy and silver
+        // Make the material glossy and silver with reflections
         object.traverse((child) => {
             if (child.isMesh) {
-                // Create a shiny silver material
+                // Create a shiny silver material with environment map reflections
                 child.material = new THREE.MeshStandardMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
-                    glossiness: 1,  // Low roughness for smooth, glossy appearance
+                    roughness: 0.2,  // Slight roughness for reflections
                     emissive: 0xaaaaaa, // Subtle glowing effect
+                    envMap: envMap,  // Apply the environment map for reflections
                     envMapIntensity: 1.5, // Reflectivity adjustment for shiny look
                     clearcoat: 1,     // Adds an extra layer of glossiness
                     clearcoatRoughness: 0.05 // Very smooth clear coat
@@ -454,8 +468,8 @@ window.addEventListener('resize', () => {
 });
 
 document.querySelector('.viewer').style.backgroundColor = "#f5f5dc";
-
 </script>
+
 
 </body>
 </html>
