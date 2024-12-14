@@ -381,12 +381,15 @@ ul {
 const viewer = document.getElementById('viewer');
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({ alpha:true });
-
-// Increase renderer resolution for better quality
-renderer.setSize(viewer.clientWidth * 2, viewer.clientHeight * 2); // Double the resolution
-
+const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,  // Enable anti-aliasing
+    precision: "highp" // Use high precision for rendering
+});
+renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
+
 
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
