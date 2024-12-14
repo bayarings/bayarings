@@ -337,19 +337,7 @@ loader.load(
     }
 );
 
-//smooth normals
-setSmoothGeometry(loader)
 
-function setSmoothGeometry(obj) {
-obj.traverse(node => {
-if ('geometry' in node) {
-const tempGeometry = new THREE.Geometry().fromBufferGeometry( node.geometry );
-tempGeometry.mergeVertices();
-tempGeometry.computeVertexNormals();
-node.geometry = new THREE.BufferGeometry().fromGeometry( tempGeometry );
-}
-})
-}
 
 // Set camera position
 camera.position.z = 20;
