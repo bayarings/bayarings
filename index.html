@@ -398,16 +398,12 @@ const directionalLight = new THREE.DirectionalLight(0xffffff, 1); // Moderate in
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
-// Load the panoramic textures and use them as an environment map
-const textureLoader = new THREE.CubeTextureLoader();
-const envMap = textureLoader.load([
-    'px.png', 'nx.png', 
-    'py.png', 'ny.png', 
-    'pz.png', 'nz.png'
-]);
+// Load panoramic texture (single image for spherical reflections)
+const textureLoader = new THREE.TextureLoader();
+const envMap = textureLoader.load('sunflowers_puresky.jpg'); // Replace with your actual panoramic image path
 
-// Set the spherical mapping for environment reflections
-envMap.mapping = THREE.SphericalReflectionMapping;
+// Set the texture as spherical reflection
+envMap.mapping = THREE.EquirectangularReflectionMapping;
 
 // Set the scene background to null, using only the environment map for reflections
 scene.background = null; // Only using the environment map for reflections
@@ -431,9 +427,9 @@ loader.load(
                     metalness: 1,    // Fully metallic (metallic material)
                     roughness: 0.1,  // Slight roughness to prevent excessive glossiness
                     emissive: 0x0,    // No glowing effect (subtle glowing removed)
-                    envMap: envMap,  // Reflections only
-                    envMapIntensity: 0.5, // Moderate reflection intensity
-                    clearcoat: 0.8, // Clearcoat for added shine (not too glossy)
+                    envMap: envMap,  // Reflections only from the environment map
+                    envMapIntensity: 1, // Higher reflection intensity for the silver look
+                    clearcoat: 1, // Clearcoat for added shine
                     clearcoatRoughness: 0.05 // Very smooth clearcoat layer
                 });
             }
