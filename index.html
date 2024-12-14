@@ -389,12 +389,12 @@ viewer.appendChild(renderer.domElement);
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
 
-// Add ambient light for softer illumination (increase intensity to make the ring visible)
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Reduced ambient light for subtle lighting
+// Add ambient light for softer illumination (adjusted intensity for more realistic lighting)
+const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.3); // Subtle ambient light for even lighting
 scene.add(ambientLight);
 
 // Add a stronger directional light to illuminate the ring better
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Adjusted intensity
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1.2); // Adjusted intensity to illuminate better
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
@@ -425,13 +425,13 @@ loader.load(
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0.1,  // Low roughness for a polished look (but not too smooth)
+                    roughness: 0.2,  // Slightly higher roughness for more subtle shine
                     emissive: 0x0,    // No glowing effect
                     envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 0.8, // Slightly reduced intensity for more realistic reflections
-                    reflectivity: 0.3,  // Lower reflectivity to make it look less like a mirror
-                    clearcoat: 0.8,    // Clearcoat for additional smooth gloss
-                    clearcoatRoughness: 0.05, // A bit of roughness for clearcoat to add depth
+                    envMapIntensity: 0.2, // Reduced environment map reflection intensity
+                    reflectivity: 0.2,  // Reduced reflectivity to make it look less like a mirror
+                    clearcoat: 0.7,    // Slight clearcoat for additional gloss
+                    clearcoatRoughness: 0.1, // Very subtle roughness for the clearcoat
                 });
             }
         });
