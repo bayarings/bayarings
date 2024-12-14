@@ -402,8 +402,8 @@ const envMap = textureLoader.load([
     'pz.png', 'nz.png'
 ]);
 
-// Set the environment map to the scene background
-scene.background = envMap;
+// Do not set the background to the environment map, only use it for reflections
+scene.background = null; // No background, just the environment map reflection
 
 // Load the .obj model
 const loader = new THREE.OBJLoader();
@@ -415,19 +415,19 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Use MeshPhysicalMaterial for better handling of clearcoat properties
+        // Use MeshPhysicalMaterial for metallic and glossy appearance
         object.traverse((child) => {
             if (child.isMesh) {
-                // Create a shiny silver material with environment map reflections
+                // Create a fully metallic and glossy material with environment map reflections
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
-                    roughness: 0.5,  // Slight roughness to reduce brightness
-                    emissive: 0xaaaaaa, // Subtle glowing effect
-                    envMap: envMap,  // Apply the environment map for reflections
-                    envMapIntensity: 0.8, // Reduce reflectivity to avoid excessive brightness
+                    roughness: 0.05, // Very smooth surface for high gloss
+                    emissive: 0xaaaaaa, // Subtle glowing effect (can be adjusted or removed)
+                    envMap: envMap,  // Apply the environment map for reflections only
+                    envMapIntensity: 1, // Use full intensity for reflections
                     clearcoat: 1,     // Adds an extra layer of glossiness
-                    clearcoatRoughness: 0.1 // Smooth clear coat
+                    clearcoatRoughness: 0 // Smooth clear coat for maximum gloss
                 });
             }
         });
