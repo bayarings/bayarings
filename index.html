@@ -390,9 +390,9 @@ loader.load(
         // Create an environment map for reflections
         const textureLoader = new THREE.CubeTextureLoader();
         const envMap = textureLoader.load([
-            'path/to/posx.jpg', 'path/to/negx.jpg', 
-            'path/to/posy.jpg', 'path/to/negy.jpg', 
-            'path/to/posz.jpg', 'path/to/negz.jpg'
+            'px.png', 'nx.png', 
+            'py.png', 'ny.png', 
+            'pz.png', 'nz.png'
         ]);
         scene.background = envMap; // Set the scene background to the environment map
 
