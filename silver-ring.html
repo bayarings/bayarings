@@ -275,6 +275,20 @@ renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI display
 viewer.appendChild(renderer.domElement);
 
 
+
+
+
+
+const modifier = new THREE.SubdivisionModifier(2); // Level 2 subdivision
+const smoothedGeometry = modifier.modify(child.geometry);
+child.geometry = smoothedGeometry;
+
+
+import { SubdivisionModifier } from 'three/examples/jsm/modifiers/SubdivisionModifier.js';
+
+
+
+
 // Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
 
