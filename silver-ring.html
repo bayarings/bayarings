@@ -310,6 +310,10 @@ loader.load(
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
+				// Create a new geometry and ensure it's in BufferGeometry format
+                const geometry = child.geometry;
+				// Compute vertex normals for smooth shading
+                geometry.computeVertexNormals();
                 // Apply a reflective, shiny silver material
                 child.material = new THREE.MeshPhysicalMaterial({
                     color: 0xC0C0C0, // Silver color
