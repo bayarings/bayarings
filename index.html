@@ -386,18 +386,19 @@ const renderer = new THREE.WebGLRenderer({ alpha:true });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
 viewer.appendChild(renderer.domElement);
 
-// Set background color to #f8f4f0
+// Set background color to #f8f4f0 (soft light color)
 scene.background = new THREE.Color(0xf8f4f0);
 
-// Add lighting
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.3); // Soft ambient light with lower intensity
+// Add ambient light for softer illumination
+const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.4); // Lower intensity
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Stronger directional light for highlights
+// Add a strong directional light for reflections on the metallic ring
+const directionalLight = new THREE.DirectionalLight(0xffffff, 2); // Stronger light
 directionalLight.position.set(5, 10, 7.5);
 scene.add(directionalLight);
 
-// Create an environment map for reflections
+// Create an environment map for reflections only (not as the background)
 const textureLoader = new THREE.CubeTextureLoader();
 const envMap = textureLoader.load([
     'px.png', 'nx.png', 
@@ -405,8 +406,8 @@ const envMap = textureLoader.load([
     'pz.png', 'nz.png'
 ]);
 
-// Do not set the background to the environment map, only use it for reflections
-scene.background = null; // No background, just the environment map reflection
+// Set the scene background to null, using only the environment map for reflections
+scene.background = null; // Just reflections, no background
 
 // Load the .obj model
 const loader = new THREE.OBJLoader();
@@ -418,17 +419,17 @@ loader.load(
         object.rotation.x = Math.PI / 2; // Adjust orientation
         object.scale.set(0.5, 0.5, 0.5); // Adjust size
 
-        // Use MeshStandardMaterial for shiny metallic silver appearance
+        // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
             if (child.isMesh) {
-                // Create a fully metallic and glossy material with environment map reflections
+                // Apply a reflective, shiny silver material
                 child.material = new THREE.MeshStandardMaterial({
                     color: 0xC0C0C0, // Silver color
                     metalness: 1,    // Fully metallic
-                    roughness: 0.01,  // Extremely low roughness for mirror-like finish (try 0 for perfect)
-                    emissive: 0xaaaaaa, // Optional: glowing effect (can be removed)
-                    envMap: envMap,  // Apply the environment map for reflections only
-                    envMapIntensity: 1.5, // Use full intensity for reflections
+                    roughness: 0.05,  // Low roughness for smooth, reflective finish (0 for perfect mirror)
+                    emissive: 0xaaaaaa, // Optional: faint glow (remove if not desired)
+                    envMap: envMap,  // Reflections only
+                    envMapIntensity: 2, // Strong reflection intensity for a mirror-like surface
                 });
             }
         });
@@ -444,7 +445,7 @@ loader.load(
 // Set camera position
 camera.position.z = 20;
 
-// Add OrbitControls
+// Add OrbitControls to allow rotation
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;  // Adds smooth movement
 controls.dampingFactor = 0.25;  // Controls the smoothness
@@ -468,7 +469,7 @@ window.addEventListener('resize', () => {
     camera.updateProjectionMatrix();
 });
 
-// Set the background color of the viewer div
+// Set the background color of the viewer div to #f8f4f0
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
 
