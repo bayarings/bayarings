@@ -21,7 +21,7 @@ let object;
 let controls;
 
 //Set which object to render
-let objToRender = 'dino';
+let objToRender = 'diamond-ring';
 
 //Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
