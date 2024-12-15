@@ -326,16 +326,20 @@ loader.load(
 
         // Apply a material with texture maps
         child.material = new THREE.MeshPhysicalMaterial({
+			color: 0xC0C0C0, // Silver color
+            metalness: 1,    // Fully metallic
+            roughness: 0,    // Smooth and shiny surface
+            emissive: 0x0,   // No emissive color
+            envMap: envMap,  // Environment reflections
+            envMapIntensity: 1.5, // Brightness of reflections
+            clearcoat: 1,    // Clearcoat for extra shine
+            clearcoatRoughness: 0, // Smooth clearcoat
+            reflectivity: 1,  // Maximum reflectivity
             map: baseColorMap, // Diffuse (color) map
             metalnessMap: metalnessMap, // Metalness map
             roughnessMap: roughnessMap, // Roughness map
             //normalMap: normalMap, // Normal map
-            envMap: envMap, // Reflection map
-            envMapIntensity: 1.5, // Reflection intensity
-            clearcoat: 1, // Add clearcoat for shine
-            clearcoatRoughness: 0, // Smooth clearcoat
-            side: THREE.DoubleSide, // Ensure both sides are rendered (if needed)
-			reflectivity: 1  // Maximum reflectivity
+            side: THREE.DoubleSide // Ensure both sides are rendered (if needed)
         });
     }
 });
