@@ -302,7 +302,7 @@ ul {
 
     // Load panoramic texture (single image for spherical reflections)
     const textureLoader = new THREE.TextureLoader();
-    const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
+    const envMap = textureLoader.load('/overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
     // Set the texture as spherical reflection
     envMap.mapping = THREE.EquirectangularReflectionMapping;
