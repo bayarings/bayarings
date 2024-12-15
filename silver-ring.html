@@ -268,13 +268,13 @@ ul {
     </div>
 <script type="module">
     // Import necessary Three.js modules and extensions
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
-    import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/loaders/OBJLoader.js';
-    import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/EffectComposer.js';
-    import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/RenderPass.js';
-    import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-    import { SMAAPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/SMAAPass.js';
+    import * as THREE from 'https://cdn.skypack.dev/three@0.155.0';
+    import { OrbitControls } from 'https://cdn.skypack.dev/three/examples/js/controls/OrbitControls.js';
+    import { OBJLoader } from 'https://cdn.skypack.dev/three/examples/js/loaders/OBJLoader.js';
+    import { EffectComposer } from 'https://cdn.skypack.dev/three/examples/js/postprocessing/EffectComposer.js';
+    import { RenderPass } from 'https://cdn.skypack.dev/three/examples/js/postprocessing/RenderPass.js';
+    import { UnrealBloomPass } from 'https://cdn.skypack.dev/three/examples/js/postprocessing/UnrealBloomPass.js';
+    import { SMAAPass } from 'https://cdn.skypack.dev/three/examples/js/postprocessing/SMAAPass.js';
 
     // Three.js setup for 3D ring viewer
     const viewer = document.getElementById('viewer');
@@ -303,10 +303,6 @@ ul {
 
     // Load panoramic texture (single image for spherical reflections)
     const textureLoader = new THREE.TextureLoader();
-    //const baseColorMap = textureLoader.load('color.jpg'); // Base color (diffuse) texture
-    //const roughnessMap = textureLoader.load('roughness.jpg'); // Roughness map
-    //const metalnessMap = textureLoader.load('metalness.jpg'); // Metalness map
-    ////const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
     const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
     // Set the texture as spherical reflection
@@ -341,11 +337,6 @@ ul {
 
                     // Apply a material with texture maps
                     child.material = new THREE.MeshPhysicalMaterial({
-                        //map: baseColorMap, // Base color map (diffuse)
-                        //metalnessMap: metalnessMap, // Metalness map
-                        //roughnessMap: roughnessMap, // Roughness map
-                        ////normalMap: normalMap, // Normal map
-                        // color: 0xC0C0C0, // Silver color - this makes it more darkish grey
                         metalness: 1, // Default metalness for areas without metalnessMap
                         roughness: 0, // Default roughness for areas without roughnessMap
                         emissive: 0x0,    // No glowing effect					
