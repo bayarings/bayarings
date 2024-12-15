@@ -250,13 +250,16 @@ ul {
     </style>
 
 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/SMAAPass.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/SMAAPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script> <!-- Add CopyShader -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script> <!-- Add ShaderPass -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+
 
 
 
@@ -291,7 +294,11 @@ const composer = new THREE.EffectComposer(renderer);
 const renderPass = new THREE.RenderPass(scene, camera);
 composer.addPass(renderPass);
 
-// Add anti-aliasing pass (if you have SMAAPass available, otherwise skip)
+// Add ShaderPass for basic post-processing (this should work now that ShaderPass is loaded)
+const copyShaderPass = new THREE.ShaderPass(THREE.CopyShader);
+composer.addPass(copyShaderPass);
+
+// Add anti-aliasing pass (SMAA pass)
 const smaaPass = new THREE.SMAAPass(viewer.clientWidth, viewer.clientHeight);
 composer.addPass(smaaPass);
 
@@ -306,6 +313,7 @@ bloomPass.threshold = 0; // Bloom threshold
 bloomPass.strength = 1.5; // Bloom intensity
 bloomPass.radius = 0; // Bloom spread
 composer.addPass(bloomPass);
+
 
 // Update animate function to use composer instead of renderer
 function animate() {
