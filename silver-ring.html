@@ -311,13 +311,13 @@ composer.addPass(smaaPass);
 // Add bloom effect (for glowing highlights)
 const bloomPass = new THREE.UnrealBloomPass(
     new THREE.Vector2(viewer.clientWidth, viewer.clientHeight),
-    1.5,  // Bloom intensity
-    0.4,  // Bloom radius
+    0.8,  // Bloom intensity (lower for less glow)
+    0.5,  // Bloom radius (lower for tighter glow)
     0.85  // Bloom threshold
 );
-bloomPass.threshold = 0; // Bloom threshold
-bloomPass.strength = 1.5; // Bloom intensity
-bloomPass.radius = 0; // Bloom spread
+bloomPass.threshold = 0.0; // Bloom threshold
+bloomPass.strength = 0.6; // Bloom intensity (adjust to reduce glowing)
+bloomPass.radius = 0.5; // Bloom spread
 composer.addPass(bloomPass);
 
 // Load panoramic texture (single image for spherical reflections)
@@ -356,14 +356,14 @@ loader.load(
 
                 // Apply a material with texture maps
                 child.material = new THREE.MeshPhysicalMaterial({
-                    metalness: 1, // Default metalness for areas without metalnessMap
-                    roughness: 0, // Default roughness for areas without roughnessMap
+                    metalness: 0.8, // Reduce metalness to make the object less shiny
+                    roughness: 0.5, // Add roughness for less reflection
                     emissive: 0x0,    // No glowing effect					
                     envMap: envMap, // Environment map for reflections
-                    envMapIntensity: 1.5, // Reflection intensity
-                    clearcoat: 1, // Clearcoat for extra shine
-                    clearcoatRoughness: 0, // Smooth clearcoat
-                    reflectivity: 1,  // Maximum reflectivity
+                    envMapIntensity: 0.5, // Reflection intensity
+                    clearcoat: 0.6, // Reduced clearcoat for less shine
+                    clearcoatRoughness: 0.2, // Slight roughness for clearcoat
+                    reflectivity: 0.5,  // Adjust reflectivity
                     side: THREE.DoubleSide // Ensure both sides render (optional)
                 });
 
