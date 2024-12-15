@@ -21,7 +21,7 @@ let object;
 let controls;
 
 // Set which object to render
-let objToRender = 'diamond-ring';
+let objToRender = 'silver-ring';
 
 
 // Load environment map for reflections
