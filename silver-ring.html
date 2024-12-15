@@ -258,15 +258,23 @@ ul {
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="viewer" class="viewer"></div>
     </div>
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://threejs.org/build/three.module.js",
+        "three/addons/": "https://threejs.org/examples/jsm/"
+    }
+}</script>
 <script type="module">
     // Import necessary Three.js modules
-    import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.155.0/build/three.module.js';
-    import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/controls/OrbitControls.js';
-    import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/loaders/OBJLoader.js';
-    import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/EffectComposer.js';
-    import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/RenderPass.js';
-    import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/UnrealBloomPass.js';
-    import { SMAAPass } from 'https://cdn.jsdelivr.net/npm/three@0.155.0/examples/jsm/postprocessing/SMAAPass.js';
+	import*as THREE from 'three'
+	
+	import {OrbitControls} from 'three/addons/controls/OrbitControls.js'
+	import {OBJLoader} from 'three/addons/controls/OBJLoader.js'
+	import {EffectComposer} from 'three/addons/controls/EffectComposer.js'
+	import {RenderPass} from 'three/addons/controls/RenderPass.js'
+	import {UnrealBloomPass} from 'three/addons/controls/UnrealBloomPass.js'
+	import {SMAAPass} from 'three/addons/controls/SMAAPass.js'
 
     const viewer = document.getElementById('viewer');
     const scene = new THREE.Scene();
