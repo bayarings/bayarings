@@ -289,10 +289,10 @@ scene.add(directionalLight);
 
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
-const baseColorMap = textureLoader.load('color.jpg'); // Base color (diffuse) texture
-const roughnessMap = textureLoader.load('roughness.jpg'); // Roughness map
-const metalnessMap = textureLoader.load('metalness.jpg'); // Metalness map
-//const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
+//const baseColorMap = textureLoader.load('color.jpg'); // Base color (diffuse) texture
+//const roughnessMap = textureLoader.load('roughness.jpg'); // Roughness map
+//const metalnessMap = textureLoader.load('metalness.jpg'); // Metalness map
+////const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
 const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
 // Set the texture as spherical reflection
@@ -328,10 +328,10 @@ loader.load(
 
         // Apply a material with texture maps
         child.material = new THREE.MeshPhysicalMaterial({
-            map: baseColorMap, // Base color map (diffuse)
-            metalnessMap: metalnessMap, // Metalness map
-            roughnessMap: roughnessMap, // Roughness map
-            //normalMap: normalMap, // Normal map
+            //map: baseColorMap, // Base color map (diffuse)
+            //metalnessMap: metalnessMap, // Metalness map
+            //roughnessMap: roughnessMap, // Roughness map
+            ////normalMap: normalMap, // Normal map
             envMap: envMap, // Environment map for reflections
             envMapIntensity: 1.5, // Reflection intensity
             metalness: 1, // Default metalness for areas without metalnessMap
