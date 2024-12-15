@@ -6,9 +6,9 @@ import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/l
 let camera, scene, renderer;
 
 // Create a Three.JS Scene
-const scene = new THREE.Scene();
+scene = new THREE.Scene();
 // create a new camera with positions and angles
-const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
 
 // Keep track of the mouse position, so we can make the eye move
 let mouseX = window.innerWidth / 2;
