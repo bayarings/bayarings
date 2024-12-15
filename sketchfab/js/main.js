@@ -53,7 +53,7 @@ loader.load(
   function (gltf) {
     // If the file is loaded, add it to the scene
     object = gltf.scene;
-	object.rotation.x = -Math.PI / 2; // Rotate 90 degrees down
+	object.rotation.x = +Math.PI / 2; // Rotate 90 degrees down
     scene.add(object);
 
     // Make the ring metallic
