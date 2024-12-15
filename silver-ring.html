@@ -272,7 +272,8 @@ const renderer = new THREE.WebGLRenderer({
     precision: "highp" // Use high precision for rendering
 });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+renderer.setPixelRatio(window.devicePixelRatio || 1.5);  // Adjust for high-DPI displays
+renderer.outputEncoding = THREE.sRGBEncoding;
 viewer.appendChild(renderer.domElement);
 
 
@@ -324,7 +325,7 @@ loader.load(
 
 				// Compute vertex normals for smooth shading
 				geometry.computeVertexNormals(); // Ensure smooth shading
-				child.material.flatShading = true; // Disable flat shading
+				child.material.flatShading = false; // Disable flat shading
 
 
 				// Apply a material with texture maps
