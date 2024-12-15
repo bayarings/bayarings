@@ -59,15 +59,15 @@ loader.load(
     // Make the ring metallic
     object.traverse(function(child) {
       if (child.isMesh) {
-		child.material.metalness = 1;  // Fully metallic
-		child.material.roughness = 0;  // Smooth surface
-		child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
-		child.material.envMap = envMap; // Apply environment map for reflections
-		child.material.envMapIntensity = 1.5; // Reflection intensity
-		child.material.clearcoat = 1; // Extra shine
-		child.material.clearcoatRoughness = 0; // Smooth clearcoat
-		child.material.reflectivity = 1;  // Maximum reflectivity
-		child.material.needsUpdate = true;
+        child.material.metalness = 1;  // Fully metallic
+        child.material.roughness = 0.4;  // Slightly rougher for a silver look
+        child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
+        child.material.envMap = envMap; // Apply environment map for reflections
+        child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
+        child.material.clearcoat = 0; // No extra shine
+        child.material.clearcoatRoughness = 0; // Smooth clearcoat
+        child.material.reflectivity = 0.5;  // Moderate reflectivity
+        child.material.needsUpdate = true;
       }
     });
   },
