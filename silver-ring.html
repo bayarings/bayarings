@@ -249,12 +249,14 @@ ul {
 }
     </style>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+	
+
 
 </head>
 <body>
-    <div class="container3d">
+	<div class="container3d">
         <h1 class="features">Interactive 3D View</h1>
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="viewer" class="viewer"></div>
@@ -300,21 +302,64 @@ envMap.mapping = THREE.EquirectangularReflectionMapping;
 // Set the scene background to null, using only the environment map for reflections
 scene.background = null; // Only using the environment map for reflections
 
-// Load the .gltf model
-const loader = new THREE.GLTFLoader();
+// Load the .obj model
+const loader = new THREE.OBJLoader();
 loader.load(
-    'scene.gltf',
-    (gltf) => {
-        scene.add(gltf.scene);
-        gltf.scene.position.set(0, 0, 0);
-        gltf.scene.rotation.x = Math.PI / 2; // Adjust orientation
-        gltf.scene.scale.set(0.5, 0.5, 0.5); // Adjust size
+    'Obj_Ready_For_textures.obj',
+    (object) => {
+        scene.add(object);
+        object.position.set(0, 0, 0);
+        object.rotation.x = Math.PI / 2; // Adjust orientation
+        object.scale.set(0.5, 0.5, 0.5); // Adjust size
+
+        // Traverse the loaded object and apply material properties for a shiny, metallic finish
+        object.traverse((child) => {
+			if (child.isMesh) {
+				const geometry = child.geometry;
+
+				// Ensure geometry is in BufferGeometry format
+				if (!(geometry instanceof THREE.BufferGeometry)) {
+					geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+				}
+
+				// Compute vertex normals for smooth shading
+				geometry.computeVertexNormals(); // Ensure smooth shading
+				child.material.flatShading = false; // Disable flat shading
+
+
+				// Apply a material with texture maps
+				child.material = new THREE.MeshPhysicalMaterial({
+					//map: baseColorMap, // Base color map (diffuse)
+					//metalnessMap: metalnessMap, // Metalness map
+					//roughnessMap: roughnessMap, // Roughness map
+					////normalMap: normalMap, // Normal map
+					// color: 0xC0C0C0, // Silver color - this makes it more darkish grey
+					metalness: 1, // Default metalness for areas without metalnessMap
+					roughness: 0, // Default roughness for areas without roughnessMap
+                    emissive: 0x0,    // No glowing effect					
+					envMap: envMap, // Environment map for reflections
+					envMapIntensity: 1.5, // Reflection intensity
+					clearcoat: 1, // Clearcoat for extra shine
+					clearcoatRoughness: 0, // Smooth clearcoat
+					reflectivity: 1,  // Maximum reflectivity
+					side: THREE.DoubleSide // Ensure both sides render (optional)
+				});
+
+				// Optionally set UV2 for roughness and AO maps if available
+				if (!child.geometry.attributes.uv2) {
+					child.geometry.setAttribute('uv2', child.geometry.attributes.uv);
+				}
+			}
+		});
+
+
+
     },
     (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
     },
     (error) => {
-        console.error('An error occurred while loading the .gltf file.', error);
+        console.error('An error occurred while loading the .obj file.', error);
     }
 );
 
@@ -348,8 +393,6 @@ window.addEventListener('resize', () => {
 // Set the background color of the viewer div to #f8f4f0
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
-</body>
-
 
 
 
