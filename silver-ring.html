@@ -271,7 +271,10 @@ const renderer = new THREE.WebGLRenderer({
     precision: "highp" // Use high precision for rendering
 });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1); // Higher pixel ratio for HD displays
+renderer.outputEncoding = THREE.sRGBEncoding; // Better color accuracy
+renderer.toneMapping = THREE.ACESFilmicToneMapping; // Advanced tone mapping for realistic lighting
+renderer.toneMappingExposure = 1.5; // Adjust exposure for brightness
 viewer.appendChild(renderer.domElement);
 
 
