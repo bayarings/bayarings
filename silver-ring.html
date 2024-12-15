@@ -258,21 +258,18 @@ ul {
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/SMAAShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script> <!-- Add LuminosityHighPassShader -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 
-
-
-
-
 </head>
 <body>
-	<div class="container3d">
+    <div class="container3d">
         <h1 class="features">Interactive 3D View</h1>
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="viewer" class="viewer"></div>
     </div>
+
 <script>
 // Three.js setup for 3D ring viewer
 const viewer = document.getElementById('viewer');
@@ -287,8 +284,14 @@ renderer.setSize(viewer.clientWidth, viewer.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
 
+// Set background color to #f8f4f0 (soft light color)
+scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
 
-// Add this right after initializing the renderer and setting up the scene/camera
+// Initialize OrbitControls after the camera and renderer are set up
+const controls = new THREE.OrbitControls(camera, renderer.domElement);
+controls.enableDamping = true;  // Adds smooth movement
+controls.dampingFactor = 0.25;  // Controls the smoothness
+controls.screenSpacePanning = false; // Prevents panning in screen space
 
 // Initialize EffectComposer
 const composer = new THREE.EffectComposer(renderer);
@@ -317,37 +320,8 @@ bloomPass.strength = 1.5; // Bloom intensity
 bloomPass.radius = 0; // Bloom spread
 composer.addPass(bloomPass);
 
-
-// Update animate function to use composer instead of renderer
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update(); // Update controls
-    composer.render(); // Use composer to render post-processed scene
-}
-
-// Start animation loop
-animate();
-
-
-
-// Set background color to #f8f4f0 (soft light color)
-scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
-
-// Add ambient light for softer illumination (increased intensity for better visibility)
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Increase intensity for better ambient lighting
-scene.add(ambientLight);
-
-// Add a stronger directional light to illuminate the ring better
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity for more lighting
-directionalLight.position.set(5, 10, 7.5);
-scene.add(directionalLight);
-
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
-//const baseColorMap = textureLoader.load('color.jpg'); // Base color (diffuse) texture
-//const roughnessMap = textureLoader.load('roughness.jpg'); // Roughness map
-//const metalnessMap = textureLoader.load('metalness.jpg'); // Metalness map
-////const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
 const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
 // Set the texture as spherical reflection
@@ -368,46 +342,37 @@ loader.load(
 
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
-			if (child.isMesh) {
-				const geometry = child.geometry;
+            if (child.isMesh) {
+                const geometry = child.geometry;
 
-				// Ensure geometry is in BufferGeometry format
-				if (!(geometry instanceof THREE.BufferGeometry)) {
-					geometry = new THREE.BufferGeometry().fromGeometry(geometry);
-				}
+                // Ensure geometry is in BufferGeometry format
+                if (!(geometry instanceof THREE.BufferGeometry)) {
+                    geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+                }
 
-				// Compute vertex normals for smooth shading
-				geometry.computeVertexNormals(); // Ensure smooth shading
-				child.material.flatShading = false; // Disable flat shading
+                // Compute vertex normals for smooth shading
+                geometry.computeVertexNormals(); // Ensure smooth shading
+                child.material.flatShading = false; // Disable flat shading
 
-
-				// Apply a material with texture maps
-				child.material = new THREE.MeshPhysicalMaterial({
-					//map: baseColorMap, // Base color map (diffuse)
-					//metalnessMap: metalnessMap, // Metalness map
-					//roughnessMap: roughnessMap, // Roughness map
-					////normalMap: normalMap, // Normal map
-					// color: 0xC0C0C0, // Silver color - this makes it more darkish grey
-					metalness: 1, // Default metalness for areas without metalnessMap
-					roughness: 0, // Default roughness for areas without roughnessMap
+                // Apply a material with texture maps
+                child.material = new THREE.MeshPhysicalMaterial({
+                    metalness: 1, // Default metalness for areas without metalnessMap
+                    roughness: 0, // Default roughness for areas without roughnessMap
                     emissive: 0x0,    // No glowing effect					
-					envMap: envMap, // Environment map for reflections
-					envMapIntensity: 1.5, // Reflection intensity
-					clearcoat: 1, // Clearcoat for extra shine
-					clearcoatRoughness: 0, // Smooth clearcoat
-					reflectivity: 1,  // Maximum reflectivity
-					side: THREE.DoubleSide // Ensure both sides render (optional)
-				});
+                    envMap: envMap, // Environment map for reflections
+                    envMapIntensity: 1.5, // Reflection intensity
+                    clearcoat: 1, // Clearcoat for extra shine
+                    clearcoatRoughness: 0, // Smooth clearcoat
+                    reflectivity: 1,  // Maximum reflectivity
+                    side: THREE.DoubleSide // Ensure both sides render (optional)
+                });
 
-				// Optionally set UV2 for roughness and AO maps if available
-				if (!child.geometry.attributes.uv2) {
-					child.geometry.setAttribute('uv2', child.geometry.attributes.uv);
-				}
-			}
-		});
-
-
-
+                // Optionally set UV2 for roughness and AO maps if available
+                if (!child.geometry.attributes.uv2) {
+                    child.geometry.setAttribute('uv2', child.geometry.attributes.uv);
+                }
+            }
+        });
     },
     (xhr) => {
         console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
@@ -420,19 +385,14 @@ loader.load(
 // Set camera position
 camera.position.z = 20;
 
-// Add OrbitControls to allow rotation
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;  // Adds smooth movement
-controls.dampingFactor = 0.25;  // Controls the smoothness
-controls.screenSpacePanning = false; // Prevents panning in screen space
-
 // Animation loop
 function animate() {
     requestAnimationFrame(animate);
     controls.update(); // Update controls for smoothness
-    renderer.render(scene, camera);
+    composer.render(); // Use composer to render post-processed scene
 }
 
+// Start animation loop after all initializations are complete
 animate();
 
 // Responsive resizing
@@ -447,9 +407,5 @@ window.addEventListener('resize', () => {
 // Set the background color of the viewer div to #f8f4f0
 document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
 </script>
-
-
-
-
 </body>
 </html>
