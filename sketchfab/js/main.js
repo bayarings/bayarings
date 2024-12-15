@@ -1,9 +1,7 @@
-// Import the THREE.js library
-import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js";
-// To allow for the camera to move around the scene
-import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js";
-// To allow for importing the .gltf file
-import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js";
+import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js"; // Import the THREE.js library
+import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js"; // To allow for the camera to move around the scene
+import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
+import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
 
 // Create a Three.JS Scene
 const scene = new THREE.Scene();
@@ -31,10 +29,23 @@ const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_pures
 // Set up the environment map for reflections
 scene.environment = envMap;
 
-// Instantiate a loader for the .gltf file
-const loader = new GLTFLoader();
+
 
 // Load the file
+new RGBELoader()
+	.load( "https://www.bayarings.com/overcast_soil_puresky_4k.hdr", function ( texture ) {
+
+		texture.mapping = THREE.EquirectangularReflectionMapping;
+
+		scene.background = texture;
+		scene.environment = texture;
+
+		render();
+
+		// model
+
+// Instantiate a loader for the .gltf file
+const loader = new GLTFLoader();
 loader.load(
   `models/${objToRender}/scene.gltf`,
   function (gltf) {
@@ -66,6 +77,10 @@ loader.load(
     console.error(error);
   }
 );
+
+	} );
+
+
 
 // Instantiate a new renderer and set its size
 const renderer = new THREE.WebGLRenderer({ alpha: true }); // Alpha: true allows for the transparent background
