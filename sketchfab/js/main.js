@@ -100,13 +100,6 @@ renderer = new THREE.WebGLRenderer( { antialias: true } );
 
 
 
-// Instantiate a new renderer and set its size
-const renderer = new THREE.WebGLRenderer({ alpha: true }); // Alpha: true allows for the transparent background
-renderer.setSize(window.innerWidth, window.innerHeight);
-
-// Add the renderer to the DOM
-document.getElementById("container3D").appendChild(renderer.domElement);
-
 // Set background color
 scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
 
