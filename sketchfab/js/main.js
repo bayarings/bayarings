@@ -45,9 +45,14 @@ loader.load(
     // Make the ring metallic
     object.traverse(function(child) {
       if (child.isMesh) {
-        child.material.metalness = 1;  // Fully metallic
-        child.material.roughness = 0.2;  // Slight roughness for shine
-        child.material.envMap = envMap;  // Apply environment map
+		child.metalness: 1, // Default metalness for areas without metalnessMap
+		child.roughness: 0, // Default roughness for areas without roughnessMap
+		child.emissive: 0x0,    // No glowing effect					
+		child.envMap: envMap, // Environment map for reflections
+		child.envMapIntensity: 1.5, // Reflection intensity
+		child.clearcoat: 1, // Clearcoat for extra shine
+		child.clearcoatRoughness: 0, // Smooth clearcoat
+		child.reflectivity: 1,  // Maximum reflectivity
         child.material.needsUpdate = true;
       }
     });
