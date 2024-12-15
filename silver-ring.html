@@ -251,14 +251,6 @@ ul {
 
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/EffectComposer.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/RenderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/SMAAPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/UnrealBloomPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/CopyShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/postprocessing/ShaderPass.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/SMAAShader.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/shaders/LuminosityHighPassShader.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
 
@@ -292,33 +284,6 @@ const controls = new THREE.OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;  // Adds smooth movement
 controls.dampingFactor = 0.25;  // Controls the smoothness
 controls.screenSpacePanning = false; // Prevents panning in screen space
-
-// Initialize EffectComposer
-const composer = new THREE.EffectComposer(renderer);
-
-// Add RenderPass (basic rendering of scene and camera)
-const renderPass = new THREE.RenderPass(scene, camera);
-composer.addPass(renderPass);
-
-// Add ShaderPass for basic post-processing (this should work now that ShaderPass is loaded)
-const copyShaderPass = new THREE.ShaderPass(THREE.CopyShader);
-composer.addPass(copyShaderPass);
-
-// Add anti-aliasing pass (SMAA pass)
-const smaaPass = new THREE.SMAAPass(viewer.clientWidth, viewer.clientHeight);
-composer.addPass(smaaPass);
-
-// Add bloom effect (for glowing highlights)
-const bloomPass = new THREE.UnrealBloomPass(
-    new THREE.Vector2(viewer.clientWidth, viewer.clientHeight),
-    0.8,  // Bloom intensity (lower for less glow)
-    0.5,  // Bloom radius (lower for tighter glow)
-    0.85  // Bloom threshold
-);
-bloomPass.threshold = 0.0; // Bloom threshold
-bloomPass.strength = 0.6; // Bloom intensity (adjust to reduce glowing)
-bloomPass.radius = 0.5; // Bloom spread
-composer.addPass(bloomPass);
 
 // Load panoramic texture (single image for spherical reflections)
 const textureLoader = new THREE.TextureLoader();
@@ -356,14 +321,14 @@ loader.load(
 
                 // Apply a material with texture maps
                 child.material = new THREE.MeshPhysicalMaterial({
-                    metalness: 0.8, // Reduce metalness to make the object less shiny
-                    roughness: 0.5, // Add roughness for less reflection
+                    metalness: 0.8, // Set metalness for reflectivity
+                    roughness: 0.3, // Control roughness for a glossy but less reflective surface
                     emissive: 0x0,    // No glowing effect					
                     envMap: envMap, // Environment map for reflections
-                    envMapIntensity: 0.5, // Reflection intensity
-                    clearcoat: 0.6, // Reduced clearcoat for less shine
-                    clearcoatRoughness: 0.2, // Slight roughness for clearcoat
-                    reflectivity: 0.5,  // Adjust reflectivity
+                    envMapIntensity: 1, // Reflection intensity (set to 1 for normal intensity)
+                    clearcoat: 0.8, // Higher clearcoat for more gloss
+                    clearcoatRoughness: 0.1, // Slight roughness for clearcoat
+                    reflectivity: 0.7,  // Adjust reflectivity
                     side: THREE.DoubleSide // Ensure both sides render (optional)
                 });
 
@@ -389,7 +354,7 @@ camera.position.z = 20;
 function animate() {
     requestAnimationFrame(animate);
     controls.update(); // Update controls for smoothness
-    composer.render(); // Use composer to render post-processed scene
+    renderer.render(scene, camera); // Render the scene directly without post-processing
 }
 
 // Start animation loop after all initializations are complete
