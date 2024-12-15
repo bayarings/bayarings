@@ -3,6 +3,8 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
 import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
 
+let camera, scene, renderer;
+
 // Create a Three.JS Scene
 const scene = new THREE.Scene();
 // create a new camera with positions and angles
