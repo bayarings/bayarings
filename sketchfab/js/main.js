@@ -16,7 +16,8 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
-viewer.appendChild(renderer.domElement);
+// Add the renderer to the DOM
+document.getElementById("viewer").appendChild(renderer.domElement);
 
 // Keep track of the mouse position, so we can make the eye move
 let mouseX = window.innerWidth / 2;
