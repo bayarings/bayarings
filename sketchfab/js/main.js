@@ -108,6 +108,10 @@ scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
 
 // Set how far the camera will be from the 3D model
 camera.position.z = (objToRender === "dino" || objToRender === "diamond-ring" || objToRender === "silver-ring") ? 25 : 500;
+if (object) {
+  object.rotation.x = Math.PI; // Rotate the object upside down
+}
+
 
 // Add lights to the scene, so we can actually see the 3D model
 const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
