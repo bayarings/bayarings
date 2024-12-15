@@ -313,36 +313,41 @@ loader.load(
 
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
-    if (child.isMesh) {
-        const geometry = child.geometry;
+			if (child.isMesh) {
+				const geometry = child.geometry;
 
-        // Ensure geometry is in BufferGeometry format
-        if (!(geometry instanceof THREE.BufferGeometry)) {
-            geometry = new THREE.BufferGeometry().fromGeometry(geometry);
-        }
+				// Ensure geometry is in BufferGeometry format
+				if (!(geometry instanceof THREE.BufferGeometry)) {
+					geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+				}
 
-        // Compute vertex normals for smooth shading
-        geometry.computeVertexNormals(); // Ensure smooth shading
-		child.material.flatShading = false; // Disable flat shading
+				// Compute vertex normals for smooth shading
+				geometry.computeVertexNormals(); // Ensure smooth shading
+				child.material.flatShading = false; // Disable flat shading
 
 
-        // Apply a material with texture maps
-        child.material = new THREE.MeshPhysicalMaterial({
-            //map: baseColorMap, // Base color map (diffuse)
-            //metalnessMap: metalnessMap, // Metalness map
-            //roughnessMap: roughnessMap, // Roughness map
-            ////normalMap: normalMap, // Normal map
-            envMap: envMap, // Environment map for reflections
-            envMapIntensity: 1.5, // Reflection intensity
-            metalness: 1, // Default metalness for areas without metalnessMap
-            roughness: 0.5, // Default roughness for areas without roughnessMap
-            clearcoat: 1, // Clearcoat for extra shine
-            clearcoatRoughness: 0, // Smooth clearcoat
-			reflectivity: 1,  // Maximum reflectivity
-            side: THREE.DoubleSide // Ensure both sides render (optional)
-        });
-    }
-});
+				// Apply a material with texture maps
+				child.material = new THREE.MeshPhysicalMaterial({
+					//map: baseColorMap, // Base color map (diffuse)
+					//metalnessMap: metalnessMap, // Metalness map
+					//roughnessMap: roughnessMap, // Roughness map
+					////normalMap: normalMap, // Normal map
+					envMap: envMap, // Environment map for reflections
+					envMapIntensity: 1.5, // Reflection intensity
+					metalness: 1, // Default metalness for areas without metalnessMap
+					roughness: 0, // Default roughness for areas without roughnessMap
+					clearcoat: 1, // Clearcoat for extra shine
+					clearcoatRoughness: 0, // Smooth clearcoat
+					reflectivity: 1,  // Maximum reflectivity
+					side: THREE.DoubleSide // Ensure both sides render (optional)
+				});
+
+				// Optionally set UV2 for roughness and AO maps if available
+				if (!child.geometry.attributes.uv2) {
+					child.geometry.setAttribute('uv2', child.geometry.attributes.uv);
+				}
+			}
+		});
 
 
 
