@@ -248,9 +248,7 @@ ul {
 	transition: none; /* Disable any transition */
 }
     </style>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/js/loaders/OBJLoader.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.171.0/examples/js/controls/OrbitControls.js"></script>
+	
 
 </head>
 <body>
@@ -259,7 +257,12 @@ ul {
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="viewer" class="viewer"></div>
     </div>
-<script>
+<script type="module">
+  import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.171.0/build/three.module.js';
+  import { OBJLoader } from 'https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/loaders/OBJLoader.js';
+  import { OrbitControls } from 'https://cdn.jsdelivr.net/npm/three@0.171.0/examples/jsm/controls/OrbitControls.js';
+  
+  
 // Three.js setup for 3D ring viewer
 const viewer = document.getElementById('viewer');
 const scene = new THREE.Scene();
