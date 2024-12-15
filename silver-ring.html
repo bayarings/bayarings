@@ -322,7 +322,9 @@ loader.load(
         }
 
         // Compute vertex normals for smooth shading
-        geometry.computeVertexNormals();
+        geometry.computeVertexNormals(); // Ensure smooth shading
+		child.material.flatShading = false; // Disable flat shading
+
 
         // Apply a material with texture maps
         child.material = new THREE.MeshPhysicalMaterial({
