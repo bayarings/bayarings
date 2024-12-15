@@ -292,7 +292,7 @@ const textureLoader = new THREE.TextureLoader();
 const baseColorMap = textureLoader.load('color.jpg'); // Base color (diffuse) texture
 const roughnessMap = textureLoader.load('roughness.jpg'); // Roughness map
 const metalnessMap = textureLoader.load('metalness.jpg'); // Metalness map
-const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
+//const normalMap = textureLoader.load('color.jpg'); // Normal map for fine surface details
 const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
 
 // Set the texture as spherical reflection
@@ -329,7 +329,7 @@ loader.load(
             map: baseColorMap, // Diffuse (color) map
             metalnessMap: metalnessMap, // Metalness map
             roughnessMap: roughnessMap, // Roughness map
-            normalMap: normalMap, // Normal map
+            //normalMap: normalMap, // Normal map
             envMap: envMap, // Reflection map
             envMapIntensity: 1.5, // Reflection intensity
             clearcoat: 1, // Add clearcoat for shine
