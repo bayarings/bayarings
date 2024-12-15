@@ -271,10 +271,7 @@ const renderer = new THREE.WebGLRenderer({
     precision: "highp" // Use high precision for rendering
 });
 renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1); // Higher pixel ratio for HD displays
-renderer.outputEncoding = THREE.sRGBEncoding; // Better color accuracy
-renderer.toneMapping = THREE.ACESFilmicToneMapping; // Advanced tone mapping for realistic lighting
-renderer.toneMappingExposure = 1.5; // Adjust exposure for brightness
+renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
 
 
@@ -316,21 +313,39 @@ loader.load(
 
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
-            if (child.isMesh) {
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0, // Very low roughness for high gloss (shiny surface)
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-            }
+    if (child.isMesh) {
+        const geometry = child.geometry;
+
+        // Ensure geometry is in BufferGeometry format
+        if (!(geometry instanceof THREE.BufferGeometry)) {
+            geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+        }
+
+        // Compute vertex normals for smooth shading
+        geometry.computeVertexNormals();
+
+        // Apply a material with texture maps
+        child.material = new THREE.MeshPhysicalMaterial({
+            map: baseColorMap, // Base color map (diffuse)
+            metalnessMap: metalnessMap, // Metalness map
+            roughnessMap: roughnessMap, // Roughness map
+            //normalMap: normalMap, // Normal map
+            envMap: envMap, // Environment map for reflections
+            envMapIntensity: 1.5, // Reflection intensity
+            metalness: 1, // Default metalness for areas without metalnessMap
+            roughness: 0.5, // Default roughness for areas without roughnessMap
+            clearcoat: 1, // Clearcoat for extra shine
+            clearcoatRoughness: 0, // Smooth clearcoat
+			reflectivity: 1,  // Maximum reflectivity
+            side: THREE.DoubleSide // Ensure both sides render (optional)
         });
+
+        // Optionally set UV2 for roughness and AO maps if available
+        if (!child.geometry.attributes.uv2) {
+            child.geometry.setAttribute('uv2', child.geometry.attributes.uv);
+        }
+    }
+});
 
 
 
