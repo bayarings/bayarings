@@ -14,7 +14,7 @@ const renderer = new THREE.WebGLRenderer({
     antialias: true,  // Enable anti-aliasing
     precision: "highp" // Use high precision for rendering
 });
-renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
 viewer.appendChild(renderer.domElement);
 
