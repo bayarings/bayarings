@@ -23,6 +23,14 @@ let controls;
 // Set which object to render
 let objToRender = 'diamond-ring';
 
+
+// Load environment map for reflections
+const textureLoader = new THREE.TextureLoader();
+const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
+
+// Set up the environment map for reflections
+scene.environment = envMap;
+
 // Instantiate a loader for the .gltf file
 const loader = new GLTFLoader();
 
@@ -64,12 +72,6 @@ document.getElementById("container3D").appendChild(renderer.domElement);
 // Set background color
 scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
 
-// Load environment map for reflections
-const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('https://www.bayarings.com/overcast_soil_puresky.jpg');  // Set the environment texture
-
-// Set up the environment map for reflections
-scene.environment = envMap;
 
 // Set how far the camera will be from the 3D model
 camera.position.z = (objToRender === "dino" || objToRender === "diamond-ring") ? 25 : 500;
