@@ -3,12 +3,20 @@ import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/js
 import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
 import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
 
-let camera, scene, renderer;
 
-// Create a Three.JS Scene
-scene = new THREE.Scene();
-// create a new camera with positions and angles
-camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+// Three.js setup for 3D ring viewer
+const viewer = document.getElementById('viewer');
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
+const renderer = new THREE.WebGLRenderer({
+    alpha: true,
+    antialias: true,  // Enable anti-aliasing
+    precision: "highp" // Use high precision for rendering
+});
+renderer.setSize(viewer.clientWidth, viewer.clientHeight);
+renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+viewer.appendChild(renderer.domElement);
 
 // Keep track of the mouse position, so we can make the eye move
 let mouseX = window.innerWidth / 2;
@@ -100,8 +108,7 @@ renderer = new THREE.WebGLRenderer( { antialias: true } );
 			}
 
 
-// Add the renderer to the DOM
-document.getElementById("container3D").appendChild(renderer.domElement);
+
 
 // Set background color
 scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
