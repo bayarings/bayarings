@@ -25,7 +25,7 @@
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-		.container3D {
+		.container3d {
             max-width: 800px;
             margin: 20px auto;
             background: #fff;
@@ -243,7 +243,7 @@ ul {
 		max-width: 40px;
 	}
 }
-.container3D .viewer {
+.container3d .viewer {
     background-color: #f8f4f0 !important;
 	transition: none; /* Disable any transition */
 }
@@ -255,7 +255,12 @@ ul {
     </header>
 
     <main>
-      <div id="container3D"></div>
+	<div class="container3d">
+        <h1 class="features">Interactive 3D View</h1>
+        <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
+        <div id="viewer" class="viewer"></div>
+		<div id="container3D"></div>
+    </div>
     </main>
 
     <script type="module" src="js/main.js"></script>
