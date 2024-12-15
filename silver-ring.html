@@ -313,21 +313,36 @@ loader.load(
 
         // Traverse the loaded object and apply material properties for a shiny, metallic finish
         object.traverse((child) => {
-            if (child.isMesh) {
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0, // Very low roughness for high gloss (shiny surface)
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-            }
+    if (child.isMesh) {
+        const geometry = child.geometry;
+
+        // Ensure geometry is in BufferGeometry format
+        if (!(geometry instanceof THREE.BufferGeometry)) {
+            geometry = new THREE.BufferGeometry().fromGeometry(geometry);
+        }
+
+        // Compute vertex normals for smooth shading
+        geometry.computeVertexNormals(); // Ensure smooth shading
+		child.material.flatShading = false; // Disable flat shading
+
+
+        // Apply a material with texture maps
+        child.material = new THREE.MeshPhysicalMaterial({
+            //map: baseColorMap, // Base color map (diffuse)
+            //metalnessMap: metalnessMap, // Metalness map
+            //roughnessMap: roughnessMap, // Roughness map
+            ////normalMap: normalMap, // Normal map
+            envMap: envMap, // Environment map for reflections
+            envMapIntensity: 1.5, // Reflection intensity
+            metalness: 1, // Default metalness for areas without metalnessMap
+            roughness: 0.5, // Default roughness for areas without roughnessMap
+            clearcoat: 1, // Clearcoat for extra shine
+            clearcoatRoughness: 0, // Smooth clearcoat
+			reflectivity: 1,  // Maximum reflectivity
+            side: THREE.DoubleSide // Ensure both sides render (optional)
         });
+    }
+});
 
 
 
