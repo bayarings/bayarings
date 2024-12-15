@@ -321,14 +321,14 @@ loader.load(
 
                 // Apply a material with texture maps
                 child.material = new THREE.MeshPhysicalMaterial({
-                    metalness: 0.8, // Set metalness for reflectivity
-                    roughness: 0.3, // Control roughness for a glossy but less reflective surface
+                    metalness: 1, // Set metalness for reflectivity
+                    roughness: 0, // Control roughness for a glossy but less reflective surface
                     emissive: 0x0,    // No glowing effect					
                     envMap: envMap, // Environment map for reflections
                     envMapIntensity: 1, // Reflection intensity (set to 1 for normal intensity)
-                    clearcoat: 0.8, // Higher clearcoat for more gloss
-                    clearcoatRoughness: 0.1, // Slight roughness for clearcoat
-                    reflectivity: 0.7,  // Adjust reflectivity
+                    clearcoat: 1, // Higher clearcoat for more gloss
+                    clearcoatRoughness: 0, // Slight roughness for clearcoat
+                    reflectivity: 1,  // Adjust reflectivity
                     side: THREE.DoubleSide // Ensure both sides render (optional)
                 });
 
