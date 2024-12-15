@@ -33,6 +33,16 @@ loader.load(
     // If the file is loaded, add it to the scene
     object = gltf.scene;
     scene.add(object);
+
+    // Make the ring metallic
+    object.traverse(function(child) {
+      if (child.isMesh) {
+        child.material.metalness = 1;  // Fully metallic
+        child.material.roughness = 0.2;  // Slight roughness for shine
+        child.material.envMap = envMap;  // Apply environment map
+        child.material.needsUpdate = true;
+      }
+    });
   },
   function (xhr) {
     // While it is loading, log the progress
@@ -56,7 +66,7 @@ scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
 
 // Load environment map for reflections
 const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('overcast_soil_puresky.jpg');  // Set the environment texture
+const envMap = textureLoader.load('https://www.bayarings.com/overcast_soil_puresky.jpg');  // Set the environment texture
 
 // Set up the environment map for reflections
 scene.environment = envMap;
