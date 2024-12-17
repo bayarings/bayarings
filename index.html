@@ -494,7 +494,7 @@ ul {
     envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Set up the environment map for reflections
-    ////scene.environment = envMap;
+    scene.environment = envMap;
 
     // Load the file
     new RGBELoader()
@@ -526,7 +526,7 @@ ul {
                             child.material.metalness = 1;  // Fully metallic
                             child.material.roughness = 0.4;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
-                            ////child.material.envMap = envMap; // Apply environment map for reflections
+                            child.material.envMap = texture; // Apply environment map for reflections
                             child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
