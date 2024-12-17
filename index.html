@@ -488,22 +488,27 @@ ul {
     // Start the 3D rendering
     animate();
 
+    // Load environment map for reflections
+    const textureLoader = new THREE.TextureLoader();
+    const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
+    envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
+    // Set up the environment map for reflections
+    scene.environment = envMap;
 
     // Load the file
     new RGBELoader()
         .load( "https://www.bayarings.com/overcast_soil_puresky_4k.hdr", function ( texture ) {
 
             texture.mapping = THREE.EquirectangularReflectionMapping;
-			
-			scene.background = texture; // Set the background to the HDR texture for the highest quality
-            scene.environment = texture; // Set the environment for reflections, also using the HDR texture for high-quality lighting and reflections
 
-            render(); // Apply the high-quality HDR texture to materials
+            scene.background = texture;
+            scene.environment = texture;
 
-			texture.anisotropy = renderer.capabilities.getMaxAnisotropy(); // Apply anisotropy for the HDR texture
+            render();
 
             // model
+
             // Instantiate a loader for the .gltf file
             const loader = new GLTFLoader();
             loader.load(
@@ -521,9 +526,8 @@ ul {
                             child.material.metalness = 1;  // Fully metallic
                             child.material.roughness = 0.4;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
-                            child.material.envMap = texture; // Apply HDR environment map for reflections (with anisotropy)
+                            child.material.envMap = envMap; // Apply environment map for reflections
                             child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
-							child.material.envMap.anisotropy = renderer.capabilities.getMaxAnisotropy(); // Apply anisotropy specifically to the material's reflection texture (envMap)
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
                             child.material.reflectivity = 0.5;  // Moderate reflectivity
