@@ -488,7 +488,13 @@ ul {
     // Start the 3D rendering
     animate();
 
-   
+    // Load environment map for reflections
+    const textureLoader = new THREE.TextureLoader();
+    const envMap = textureLoader.load("https://www.bayarings.com/steinbach_field-min.jpg");  // Set the environment texture
+    envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+    // Set up the environment map for reflections
+    scene.environment = envMap;
 
     // Load the file
     new RGBELoader()
