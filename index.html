@@ -26,7 +26,11 @@
             padding: 20px;
             line-height: 1.6;
         }
-		
+		main {
+            display: grid;                /* Enables CSS Grid */
+            place-items: center;          /* Centers content both horizontally and vertically */
+            height: 100vh;                /* Full viewport height */
+        }
         .container1 {
             max-width: 800px;
             margin: 20px auto;
@@ -276,11 +280,7 @@ ul {
 	transition: none; /* Disable any transition */
 }
     </style>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/OBJLoader.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-
-
+	
 </head>
 <body>
     <div class="container1">
@@ -300,10 +300,12 @@ ul {
             </div>
         </div>
 	</div>
+	<main>
 	<div class="container3d">
         <h1 class="features">Interactive 3D View</h1>
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="container3D" class="viewer"></div>
+	</main>
     </div>
 	<div class="container2">
         <div class="product-details">
@@ -409,12 +411,22 @@ ul {
 
 
 <script type="module">
-    window.addEventListener('resize', function () {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        location.reload();
-    });
+    // Resize the Three.js renderer and camera dynamically
+	window.addEventListener('resize', function () {
+    const width = container3D.clientWidth;
+    const height = container3D.clientHeight;
+
+    // Update the camera aspect ratio and projection matrix
+    camera.aspect = width / height;
+    camera.updateProjectionMatrix();
+
+    // Resize the renderer to match the new dimensions
+    renderer.setSize(width, height);
+
+    // Re-render the scene
+    render();
+});
+
 
     import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js"; // Import the THREE.js library
     import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js"; // To allow for the camera to move around the scene
@@ -515,7 +527,7 @@ ul {
                             child.material.roughness = 0.4;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
                             child.material.envMap = envMap; // Apply environment map for reflections
-                            child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
+                            child.material.envMapIntensity = 1; // Lower reflection intensity for a silver look
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
                             child.material.reflectivity = 0.5;  // Moderate reflectivity
