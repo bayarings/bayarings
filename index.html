@@ -21,6 +21,7 @@
             font-family: 'Montserrat';
             color: #333;
             background-color: #f8f4f0; /* Neutral background for luxury feel */
+			height: 100%; /* Ensures the body takes full height of the viewport */
             margin: 0;
             padding: 20px;
             line-height: 1.6;
@@ -43,12 +44,11 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
-
-        .viewer {
-            width: 100%;
-            height: 500px;
-            background-color: #f8f4f0 !important; /* Beige background #ccb8a7 */
-            border-radius: 10px;
+		.viewer {
+            width: 100%;                  /* Makes the viewer take full width */
+            height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 1.5em * 1.6 );                /* Set a fixed height */
+            background-color: #f8f4f0;    /* Beige background #ccb8a7 */
+            border-radius: 10px;          /* Optional border radius */
         }
 		.container2 {
             max-width: 800px;
@@ -237,20 +237,40 @@ ul {
     margin: 0;            /* Removes margin */
 }
 
-
 @media (max-width: 768px) {
     .logo img {
         max-width: 230px; /* Adjust as needed for tablets */
     }
 }
-
 @media (max-width: 480px) {
     .logo img {
         max-width: 150px; /* Adjust as needed for mobile devices */
     }
 	.top-right img {
 		max-width: 40px;
+	}
 }
+
+@media (max-width: 980px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 2 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 550px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 3 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 420px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 2 * 3em * 1.6 - 2 * 20px - 3 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 380px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 2 * 3em * 1.6 - 2 * 20px - 4 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
 .container3d .viewer {
     background-color: #f8f4f0 !important;
 	transition: none; /* Disable any transition */
@@ -283,7 +303,7 @@ ul {
 	<div class="container3d">
         <h1 class="features">Interactive 3D View</h1>
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
-        <div id="viewer" class="viewer"></div>
+        <div id="container3D" class="viewer"></div>
     </div>
 	<div class="container2">
         <div class="product-details">
@@ -318,6 +338,7 @@ ul {
         <footer>
             © 2024, BayaRings | Contact: <a href="https://www.instagram.com/bayagorbusha/" target="_blank">@bayagorbusha</a> | <a href="https://www.bayarings.com/privacy-policy" target="_blank">Privacy Policy</a>
         </footer>
+</body>
 	<script>
         // Get the elements
         const audioElement = document.getElementById('audio');
@@ -387,112 +408,133 @@ ul {
     </script>
 
 
-<script>
-// Three.js setup for 3D ring viewer
-const viewer = document.getElementById('viewer');
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(75, viewer.clientWidth / viewer.clientHeight, 0.1, 1000);
-const renderer = new THREE.WebGLRenderer({
-    alpha: true,
-    antialias: true,  // Enable anti-aliasing
-    precision: "highp" // Use high precision for rendering
-});
-renderer.setSize(viewer.clientWidth, viewer.clientHeight);
-renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
-viewer.appendChild(renderer.domElement);
+<script type="module">
+    window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        location.reload();
+    });
 
+    import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js"; // Import the THREE.js library
+    import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js"; // To allow for the camera to move around the scene
+    import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
+    import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
 
-// Set background color to #f8f4f0 (soft light color)
-scene.background = new THREE.Color(0xf8f4f0); // Background set to f8f4f0
+    // Three.js setup for 3D ring container3D
+    const container3D = document.getElementById('container3D');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container3D.clientWidth / container3D.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,  // Enable anti-aliasing
+        precision: "highp" // Use high precision for rendering
+    });
+    renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+    container3D.appendChild(renderer.domElement);
 
-// Add ambient light for softer illumination (increased intensity for better visibility)
-const ambientLight = new THREE.AmbientLight(0xaaaaaa, 0.5); // Increase intensity for better ambient lighting
-scene.add(ambientLight);
-
-// Add a stronger directional light to illuminate the ring better
-const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5); // Increased intensity for more lighting
-directionalLight.position.set(5, 10, 7.5);
-scene.add(directionalLight);
-
-// Load panoramic texture (single image for spherical reflections)
-const textureLoader = new THREE.TextureLoader();
-const envMap = textureLoader.load('overcast_soil_puresky.jpg'); // Replace with your actual panoramic image path
-
-// Set the texture as spherical reflection
-envMap.mapping = THREE.EquirectangularReflectionMapping;
-
-// Set the scene background to null, using only the environment map for reflections
-scene.background = null; // Only using the environment map for reflections
-
-// Load the .obj model
-const loader = new THREE.OBJLoader();
-loader.load(
-    'bayarings.obj',
-    (object) => {
-        scene.add(object);
-        object.position.set(0, 0, 0);
-        object.rotation.x = Math.PI / 2; // Adjust orientation
-        object.scale.set(0.5, 0.5, 0.5); // Adjust size
-
-        // Traverse the loaded object and apply material properties for a shiny, metallic finish
-        object.traverse((child) => {
-            if (child.isMesh) {
-                // Apply a reflective, shiny silver material
-                child.material = new THREE.MeshPhysicalMaterial({
-                    color: 0xC0C0C0, // Silver color
-                    metalness: 1,    // Fully metallic (metallic material)
-                    roughness: 0, // Very low roughness for high gloss (shiny surface)
-                    emissive: 0x0,    // No glowing effect
-                    envMap: envMap,   // Reflections from the environment map
-                    envMapIntensity: 1.5, // Increased reflection intensity for the silver look
-                    clearcoat: 1,     // Clearcoat for added shine
-                    clearcoatRoughness: 0, // Very smooth clearcoat layer for glossiness
-                    reflectivity: 1   // Maximum reflectivity for a polished surface
-                });
-            }
-        });
-    },
-    (xhr) => {
-        console.log((xhr.loaded / xhr.total) * 100 + '% loaded');
-    },
-    (error) => {
-        console.error('An error occurred while loading the .obj file.', error);
+    function render() {
+        renderer.render( scene, camera );
     }
-);
 
-// Set camera position
-camera.position.z = 20;
+    // Set background color
+    scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
 
-// Add OrbitControls to allow rotation
-const controls = new THREE.OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true;  // Adds smooth movement
-controls.dampingFactor = 0.25;  // Controls the smoothness
-controls.screenSpacePanning = false; // Prevents panning in screen space
+    // Set which object to render
+    let objToRender = 'silver-ring';
 
-// Animation loop
-function animate() {
-    requestAnimationFrame(animate);
-    controls.update(); // Update controls for smoothness
-    renderer.render(scene, camera);
-}
+    // Set how far the camera will be from the 3D model
+    camera.position.z = 25;
 
-animate();
+    // Add lights to the scene, so we can actually see the 3D model
+    const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+    topLight.position.set(500, 500, 500); // top-left-ish
+    topLight.castShadow = true;
+    scene.add(topLight);
 
-// Responsive resizing
-window.addEventListener('resize', () => {
-    const width = viewer.clientWidth;
-    const height = viewer.clientHeight;
-    renderer.setSize(width, height);
-    camera.aspect = width / height;
-    camera.updateProjectionMatrix();
-});
+    const ambientLight = new THREE.AmbientLight(0x333333, 5);
+    scene.add(ambientLight);
 
-// Set the background color of the viewer div to #f8f4f0
-document.querySelector('.viewer').style.backgroundColor = "#f8f4f0";
-</script>
+    // Keep the 3D object on a global variable so we can access it later
+    let object;
 
+    // OrbitControls allow the camera to move around the scene
+    let controls;
 
+    // This adds controls to the camera, so we can rotate/zoom it with the mouse
+    controls = new OrbitControls(camera, renderer.domElement);
 
+    // Render the scene
+    function animate() {
+        requestAnimationFrame(animate);
+        // Here we could add some code to update the scene, adding some automatic movement
 
-</body>
+        renderer.render(scene, camera);
+    }
+
+    // Start the 3D rendering
+    animate();
+
+    // Load environment map for reflections
+    const textureLoader = new THREE.TextureLoader();
+    const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
+    envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+    // Set up the environment map for reflections
+    scene.environment = envMap;
+
+    // Load the file
+    new RGBELoader()
+        .load( "https://www.bayarings.com/overcast_soil_puresky_4k.hdr", function ( texture ) {
+
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+
+            scene.background = texture;
+            scene.environment = texture;
+
+            render();
+
+            // model
+
+            // Instantiate a loader for the .gltf file
+            const loader = new GLTFLoader();
+            loader.load(
+                `models/${objToRender}/scene.gltf`,
+                function (gltf) {
+                    // If the file is loaded, add it to the scene
+                    object = gltf.scene;
+                    object.rotation.x = +Math.PI / 2; // Rotate 90 degrees down
+                    scene.add(object);
+
+                    // Make the ring metallic
+                    object.traverse(function(child) {
+                        if (child.isMesh) {
+                            child.material.metalness = 1;  // Fully metallic
+                            child.material.roughness = 0.4;  // Slightly rougher for a silver look
+                            child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
+                            child.material.envMap = envMap; // Apply environment map for reflections
+                            child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
+                            child.material.clearcoat = 0; // No extra shine
+                            child.material.clearcoatRoughness = 0; // Smooth clearcoat
+                            child.material.reflectivity = 0.5;  // Moderate reflectivity
+                            child.material.minFilter = THREE.LinearMipMapLinearFilter;
+                            child.material.magFilter = THREE.LinearFilter;
+                            child.material.needsUpdate = true;
+                        }
+                    });
+                },
+                function (xhr) {
+                    // While it is loading, log the progress
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    // If there is an error, log it
+                    console.error(error);
+                }
+            );
+
+        } );
+    </script>
+
 </html>
