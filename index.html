@@ -504,7 +504,7 @@ ul {
                 function (gltf) {
                     // If the file is loaded, add it to the scene
                     object = gltf.scene;
-                    object.rotation.x = Math.PI / 2; // Rotate 90 degrees down
+                    object.rotation.x = +Math.PI / 2; // Rotate 90 degrees down
 					object.rotation.y = Math.PI / 2; // Rotate 90 degrees to the right
                     scene.add(object);
 
