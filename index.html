@@ -489,8 +489,8 @@ ul {
     animate();
 
     // Load environment map for reflections
-    ////const textureLoader = new THREE.TextureLoader();
-    const envMap = 1;  // Set the environment texture
+    const textureLoader = new THREE.TextureLoader();
+    const envMap = textureLoader.load("https://www.bayarings.com/steinbach_field-min.jpg");  // Set the environment texture
     ////envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Set up the environment map for reflections
