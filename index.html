@@ -459,11 +459,39 @@ ul {
     // Set how far the camera will be from the 3D model
     camera.position.z = 35;
 
-    // Add lights to the scene, so we can actually see the 3D model
-    const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
-    topLight.position.set(500, 500, 500); // top-left-ish
-    topLight.castShadow = true;
-    scene.add(topLight);
+    // Add lights to the scene
+const topLight = new THREE.DirectionalLight(0xffffff, 3); // Bright directional light
+topLight.position.set(500, 500, 500);
+topLight.castShadow = true;
+
+// Configure shadow settings
+topLight.shadow.mapSize.width = 2048;
+topLight.shadow.mapSize.height = 2048;
+topLight.shadow.camera.near = 0.5;
+topLight.shadow.camera.far = 2000;
+topLight.shadow.camera.left = -1000;
+topLight.shadow.camera.right = 1000;
+topLight.shadow.camera.top = 1000;
+topLight.shadow.camera.bottom = -1000;
+scene.add(topLight);
+
+// Add ambient light for general illumination
+const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // Soft, general light
+scene.add(ambientLight);
+
+// Add additional directional light
+const additionalLight = new THREE.DirectionalLight(0xffffff, 2); 
+additionalLight.position.set(-500, -500, 500);
+scene.add(additionalLight);
+
+// Optional: Hemisphere light for testing
+const hemisphereLight = new THREE.HemisphereLight(0xffffff, 0x444444, 1.0);
+scene.add(hemisphereLight);
+
+// Adjust renderer tone mapping and exposure
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.5;
+
 
     const ambientLight = new THREE.AmbientLight(0x333333, 5);
     scene.add(ambientLight);
