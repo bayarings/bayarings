@@ -528,7 +528,7 @@ ul {
                             child.material.roughness = 0.4;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
                             child.material.envMap = texture; // Apply HDR environment map for reflections (with anisotropy)
-                            child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
+                            child.material.envMapIntensity = 1; // Lower reflection intensity for a silver look
 							child.material.envMap.anisotropy = renderer.capabilities.getMaxAnisotropy(); // Apply anisotropy specifically to the material's reflection texture (envMap)
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
