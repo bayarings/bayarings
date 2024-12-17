@@ -255,7 +255,26 @@ ul {
 	}
 }
 
-
+@media (max-width: 980px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 2 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 550px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 3 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 420px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 2 * 3em * 1.6 - 2 * 20px - 3 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
+        @media (max-width: 380px) {
+            .viewer {
+                height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 2 * 3em * 1.6 - 2 * 20px - 4 * 1.5em * 1.6 );                /* Set a fixed height */
+            }
+        }
 .container3d .viewer {
     background-color: #f8f4f0 !important;
 	transition: none; /* Disable any transition */
@@ -475,7 +494,7 @@ ul {
     envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Set up the environment map for reflections
-    ////scene.environment = envMap;
+    scene.environment = envMap;
 
     // Load the file
     new RGBELoader()
@@ -507,7 +526,7 @@ ul {
                             child.material.metalness = 1;  // Fully metallic
                             child.material.roughness = 0.4;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
-                            child.material.envMap = envMap; // Apply environment map for reflections
+                            //child.material.envMap = envMap; // Apply environment map for reflections
                             child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
