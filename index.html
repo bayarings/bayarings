@@ -26,7 +26,11 @@
             padding: 20px;
             line-height: 1.6;
         }
-		
+		main {
+            display: grid;                /* Enables CSS Grid */
+            place-items: center;          /* Centers content both horizontally and vertically */
+            height: 100vh;                /* Full viewport height */
+        }
         .container1 {
             max-width: 800px;
             margin: 20px auto;
@@ -277,10 +281,12 @@ ul {
             </div>
         </div>
 	</div>
+	<main>
 	<div class="container3d">
         <h1 class="features">Interactive 3D View</h1>
         <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
         <div id="container3D" class="viewer"></div>
+	</main>
     </div>
 	<div class="container2">
         <div class="product-details">
