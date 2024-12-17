@@ -490,7 +490,7 @@ ul {
 
     // Load environment map for reflections
     const textureLoader = new THREE.TextureLoader();
-    const envMap = textureLoader.load("https://www.bayarings.com/steinbach_field-min.jpg");  // Set the environment texture
+    const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
     envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
 
     // Set up the environment map for reflections
@@ -498,7 +498,7 @@ ul {
 
     // Load the file
     new RGBELoader()
-        .load( "https://www.bayarings.com/steinbach_field_2k", function ( texture ) {
+        .load( "https://www.bayarings.com/overcast_soil_puresky_4k.hdr", function ( texture ) {
 
             texture.mapping = THREE.EquirectangularReflectionMapping;
 
