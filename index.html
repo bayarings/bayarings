@@ -445,7 +445,7 @@ ul {
     let objToRender = 'bayarings';
 
     // Set how far the camera will be from the 3D model
-    camera.position.z = 25;
+    camera.position.z = 35;
 
     // Add lights to the scene, so we can actually see the 3D model
     const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
@@ -504,7 +504,8 @@ ul {
                 function (gltf) {
                     // If the file is loaded, add it to the scene
                     object = gltf.scene;
-                    object.rotation.x = +Math.PI / 2; // Rotate 90 degrees down
+                    object.rotation.x = Math.PI / 2; // Rotate 90 degrees down
+					object.rotation.y = Math.PI / 2; // Rotate 90 degrees to the right
                     scene.add(object);
 
                     // Make the ring metallic
