@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   
+    <style>
+	
+	/* Importing luxurious Google Fonts */
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Raleway:wght@300;400;700&family=Montserrat:wght@300;500;700&display=swap');
+
+        body {
+            font-family: 'Montserrat';
+            color: #333;
+            background-color: #f8f4f0; /* Neutral background for luxury feel */
+			height: 100%; /* Ensures the body takes full height of the viewport */
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+		main {
+            display: grid;                /* Enables CSS Grid */
+            place-items: center;          /* Centers content both horizontally and vertically */
+            height: 100vh;                /* Full viewport height */
+        }
+        .container1 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container3d {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+		.viewer {
+            width: 100%;                  /* Makes the viewer take full width */
+            height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 1.5em * 1.6 );                /* Set a fixed height */
+            background-color: #f8f4f0;    /* Beige background #ccb8a7 */
+            border-radius: 10px;          /* Optional border radius */
+        }
+		.container2 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container3 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+		.container4 {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+			position: relative;
+        }
+        .logo {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #333;
+        }
+		@keyframes moveSlowly {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(10px); /* Moves 10px to the right */
+    }
+    100% {
+        transform: translateX(0); /* Returns to the original position */
+    }
+}
+		.top-right {
+			position: absolute;
+			right: 10px; /* Adjust this value to move the image more to the left */
+}
+		.top-right img {
+			max-width: 50px; /* Adjust the size of the image */
+			height: auto;    /* Maintain aspect ratio */
+			cursor: pointer;
+			animation: moveSlowly 3s ease-in-out infinite; /* Apply animation */
+
+		}
+        .product-slider {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+            margin-top: 20px;
+        }
+        .product-image {
+            flex: 3;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .product-image img {
+            max-width: 100%;
+            border-radius: 10px;
+            object-fit: cover;
+            transition: transform 0.2s ease;
+        }
+        .image-thumbnails {
+            /* flex: 1; removed so that bigger photo and less blank space on the right */
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .image-thumbnails img {
+            width: 70px;
+            height: 70px;
+            object-fit: cover;
+            border-radius: 5px;
+            cursor: pointer;
+            border: 2px solid transparent;
+        }
+        .image-thumbnails img.selected {
+            border: 2px solid #3498db;
+        }
+        .product-details {
+            margin-top: 20px;
+        }
+        .finally {
+			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: #585656; /* brownish #8b6f55 */
+        }
+        .features {
+			font-family: 'Great Vibes', cursive; /* Luxurious cursive font for headlines */
+            font-size: 3em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #585656;
+        }
+		
+		.about {		
+            font-size: 1.5em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            color: #585656;
+        }
+        .product-price {
+			font-family: 'Raleway', sans-serif; /* Modern luxury */
+            font-size: 1.5em;
+            color: #a9805c;;
+            font-weight: bold;
+        }
+        .buy-now {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #3498db;
+            border: none;
+            border-radius: 5px;
+            text-align: center;
+            cursor: pointer;
+            text-decoration: none;
+        }
+        .buy-now:hover {
+            background-color: #2980b9;
+        }
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+            font-size: 0.9em;
+        }
+        a {
+            color: #a9805c;
+            text-decoration: none;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Zoom effect */
+        .zoom-container {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zoomed-image {
+            position: absolute;
+            top: 100px; /* Adjusted to appear right below the logo */
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: scale(1);
+            transition: transform 0.2s ease;
+            visibility: hidden;
+            z-index: 100;
+        }
+
+        .product-image:hover .zoomed-image {
+            visibility: visible;
+            transform: scale(2);
+        }
+		
+		.logo img {
+    max-width: 50%;
+    height: auto;
+    display: block;
+}
+
+ul {
+    list-style-type: none; /* Removes bullets */
+    padding: 0;           /* Removes padding */
+    margin: 0;            /* Removes margin */
+}
+
+@media (max-width: 768px) {
+    .logo img {
+        max-width: 230px; /* Adjust as needed for tablets */
+    }
+}
+@media (max-width: 480px) {
+    .logo img {
+        max-width: 150px; /* Adjust as needed for mobile devices */
+    }
+	.top-right img {
+		max-width: 40px;
+	}
+}
+
+
+.container3d .viewer {
+    background-color: #f8f4f0 !important;
+	transition: none; /* Disable any transition */
+}
+    </style>
+	
+</head>
+<body>
+    <div class="container1">
+        container1
+	</div>
+	<main>
+	<div class="container3d">
+        <h1 class="features">Interactive 3D View</h1>
+        <p class="about">Explore the design of the ring in full 3D! Click and drag to rotate the ring.</p>
+        <div id="container3D" class="viewer"></div>
+	</main>
+    </div>
+	<div class="container2">
+        <div class="product-details">
+            container2
+		</div>
+	</div>
+	<div class="container3">
+			container3
+	</div>
+	<div class="container4">
+			container4
+    </div>
+		
+			
+
+		
+        <footer>
+            footer
+        </footer>
+</body>
+
+
+
+<script type="module">
+    window.addEventListener('resize', function () {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        location.reload();
+    });
+
+    import * as THREE from "https://cdn.skypack.dev/three@0.129.0/build/three.module.js"; // Import the THREE.js library
+    import { OrbitControls } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/controls/OrbitControls.js"; // To allow for the camera to move around the scene
+    import { GLTFLoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/GLTFLoader.js"; // To allow for importing the .gltf file
+    import { RGBELoader } from "https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/RGBELoader.js"; // To allow for importing environment
+
+    // Three.js setup for 3D ring container3D
+    const container3D = document.getElementById('container3D');
+    const scene = new THREE.Scene();
+    const camera = new THREE.PerspectiveCamera(75, container3D.clientWidth / container3D.clientHeight, 0.1, 1000);
+    const renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,  // Enable anti-aliasing
+        precision: "highp" // Use high precision for rendering
+    });
+    renderer.setSize(container3D.clientWidth, container3D.clientHeight);
+    renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
+    container3D.appendChild(renderer.domElement);
+
+    function render() {
+        renderer.render( scene, camera );
+    }
+
+    // Set background color
+    scene.background = new THREE.Color(0xf8f4f0);  // Background color #f8f4f0
+
+    // Set which object to render
+    let objToRender = 'bayarings';
+
+    // Set how far the camera will be from the 3D model
+    camera.position.z = 35;
+
+    // Add lights to the scene, so we can actually see the 3D model
+    const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
+    topLight.position.set(500, 500, 500); // top-left-ish
+    topLight.castShadow = true;
+    scene.add(topLight);
+
+    const ambientLight = new THREE.AmbientLight(0x333333, 5);
+    scene.add(ambientLight);
+
+    // Keep the 3D object on a global variable so we can access it later
+    let object;
+
+    // OrbitControls allow the camera to move around the scene
+    let controls;
+
+    // This adds controls to the camera, so we can rotate/zoom it with the mouse
+    controls = new OrbitControls(camera, renderer.domElement);
+
+    // Render the scene
+    function animate() {
+        requestAnimationFrame(animate);
+        // Here we could add some code to update the scene, adding some automatic movement
+
+        renderer.render(scene, camera);
+    }
+
+    // Start the 3D rendering
+    animate();
+
+    // Load environment map for reflections
+    const textureLoader = new THREE.TextureLoader();
+    const envMap = textureLoader.load("https://www.bayarings.com/overcast_soil_puresky.jpg");  // Set the environment texture
+    envMap.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+    // Set up the environment map for reflections
+    scene.environment = envMap;
+
+    // Load the file
+    new RGBELoader()
+        .load( "https://www.bayarings.com/overcast_soil_puresky_4k.hdr", function ( texture ) {
+
+            texture.mapping = THREE.EquirectangularReflectionMapping;
+
+            scene.background = texture;
+            scene.environment = texture;
+
+            render();
+
+            // model
+
+            // Instantiate a loader for the .gltf file
+            const loader = new GLTFLoader();
+            loader.load(
+                `sketchfab/models/${objToRender}/scene.gltf`,
+                function (gltf) {
+                    // If the file is loaded, add it to the scene
+                    object = gltf.scene;
+                    object.rotation.x = Math.PI / 2; // Rotate 90 degrees down
+					object.rotation.z = Math.PI / 2; // Rotate 90 degrees to the right
+                    scene.add(object);
+
+                    // Make the ring metallic
+                    object.traverse(function(child) {
+                        if (child.isMesh) {
+                            child.material.metalness = 1;  // Fully metallic
+                            child.material.roughness = 0.4;  // Slightly rougher for a silver look
+                            child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
+                            child.material.envMap = envMap; // Apply environment map for reflections
+                            child.material.envMapIntensity = 0.7; // Lower reflection intensity for a silver look
+                            child.material.clearcoat = 0; // No extra shine
+                            child.material.clearcoatRoughness = 0; // Smooth clearcoat
+                            child.material.reflectivity = 0.5;  // Moderate reflectivity
+                            child.material.minFilter = THREE.LinearMipMapLinearFilter;
+                            child.material.magFilter = THREE.LinearFilter;
+                            child.material.needsUpdate = true;
+                        }
+                    });
+                },
+                function (xhr) {
+                    // While it is loading, log the progress
+                    console.log((xhr.loaded / xhr.total * 100) + '% loaded');
+                },
+                function (error) {
+                    // If there is an error, log it
+                    console.error(error);
+                }
+            );
+
+        } );
+    </script>
+
+</html>
