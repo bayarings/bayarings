@@ -18,15 +18,15 @@
 			"mesh":0,
 			"name":"thicker",
 			"rotation":[
-				0.6772021651268005,
-				0.01660730317234993,
-				-0.7332515716552734,
-				0.05885317176580429
+				0.656582772731781,
+				-0.11524501442909241,
+				-0.7380139231681824,
+				0.10465789586305618
 			],
 			"scale":[
 				0.7043471336364746,
-				0.7043473124504089,
-				0.7043470740318298
+				0.7043474316596985,
+				0.7043471336364746
 			],
 			"translation":[
 				-2.2104604244232178,
@@ -38,13 +38,13 @@
 			"mesh":1,
 			"name":"silver Claw Ring_design",
 			"rotation":[
-				-0.04132506251335144,
-				-0.9974856972694397,
-				0.01662425324320793,
-				0.055121101438999176
+				0.20129989087581635,
+				-0.9778361916542053,
+				0.002790453378111124,
+				0.05750603973865509
 			],
 			"scale":[
-				999.9999389648438,
+				1000,
 				1000,
 				1000.0000610351562
 			],
@@ -74,9 +74,10 @@
 				{
 					"attributes":{
 						"POSITION":3,
-						"NORMAL":4
+						"NORMAL":4,
+						"COLOR_0":5
 					},
-					"indices":5
+					"indices":6
 				}
 			]
 		}
@@ -113,7 +114,7 @@
 		{
 			"bufferView":3,
 			"componentType":5126,
-			"count":322288,
+			"count":235451,
 			"max":[
 				0.011221315711736679,
 				0.0054296404123306274,
@@ -129,11 +130,18 @@
 		{
 			"bufferView":4,
 			"componentType":5126,
-			"count":322288,
+			"count":235451,
 			"type":"VEC3"
 		},
 		{
 			"bufferView":5,
+			"componentType":5123,
+			"count":235451,
+			"normalized":true,
+			"type":"VEC4"
+		},
+		{
+			"bufferView":6,
 			"componentType":5125,
 			"count":336984,
 			"type":"SCALAR"
@@ -160,26 +168,32 @@
 		},
 		{
 			"buffer":0,
-			"byteLength":3867456,
+			"byteLength":2825412,
 			"byteOffset":11033640,
 			"target":34962
 		},
 		{
 			"buffer":0,
-			"byteLength":3867456,
-			"byteOffset":14901096,
+			"byteLength":2825412,
+			"byteOffset":13859052,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":1883608,
+			"byteOffset":16684464,
 			"target":34962
 		},
 		{
 			"buffer":0,
 			"byteLength":1347936,
-			"byteOffset":18768552,
+			"byteOffset":18568072,
 			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":20116488,
+			"byteLength":19916008,
 			"uri":"scene.bin"
 		}
 	]
