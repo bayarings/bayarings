@@ -48,6 +48,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
             text-align: center;
         }
+		.containerVid {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
 		.viewer {
             width: 100%;                  /* Makes the viewer take full width */
             height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 1.5em * 1.6 );                /* Set a fixed height */
@@ -255,6 +263,7 @@ ul {
 	}
 }
 
+/* The following @media lines are indeed needed for a correct adjustments in mobile screens */
 @media (max-width: 980px) {
             .viewer {
                 height: calc( 100vh - 2 * 20px - 2 * 20px - 2 * 20px - 3em * 1.6 - 2 * 20px - 2 * 1.5em * 1.6 );                /* Set a fixed height */
@@ -307,6 +316,14 @@ ul {
         <div id="container3D" class="viewer"></div>
 	</main>
     </div>
+	<div class="containerVid">
+        <div class="product-details">
+            <h1 class="finally">Dancing</h1>
+            <p class="about">
+                <div style="padding:133.33% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1040356162?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="BAYArings Dancing"></iframe></div><script src="https://player.vimeo.com/api/player.js"></script>
+			</p>
+		</div>
+	</div>
 	<div class="container2">
         <div class="product-details">
             <h1 class="finally">Finally!</h1>
