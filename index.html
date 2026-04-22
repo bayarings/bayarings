@@ -427,7 +427,7 @@
             renderer.render(scene, camera);
         }
         
-        scene.background = new THREE.Color(0xf8f4f0);
+        scene.background = texture;  // Use HDR as background
         
         let objToRender = 'classic-claw';
         camera.position.z = 45;
