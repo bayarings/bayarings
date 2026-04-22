@@ -463,6 +463,10 @@ h1 {
         antialias: true,  // Enable anti-aliasing
         precision: "highp" // Use high precision for rendering
     });
+	renderer.physicallyCorrectLights = true;
+	renderer.toneMapping = THREE.ACESFilmicToneMapping;
+	renderer.toneMappingExposure = 1.8;
+	renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setSize(container3D.clientWidth, container3D.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);  // Adjust for high-DPI displays
     container3D.appendChild(renderer.domElement);
@@ -488,12 +492,12 @@ enforceStyles(); // Apply immediately
     camera.position.z = 45;
 
     // Add lights to the scene, so we can actually see the 3D model
-    const topLight = new THREE.DirectionalLight(0xffffff, 3); // (color, intensity)
+    const topLight = new THREE.DirectionalLight(0xffffff, 1); // (color, intensity)
     topLight.position.set(500, 500, 500); // top-left-ish
     topLight.castShadow = true;
     scene.add(topLight);
 
-    const ambientLight = new THREE.AmbientLight(0x333333, 5);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.3);
     scene.add(ambientLight);
 
     // Keep the 3D object on a global variable so we can access it later
@@ -552,10 +556,10 @@ enforceStyles(); // Apply immediately
                     object.traverse(function(child) {
                         if (child.isMesh) {
                             child.material.metalness = 1;  // Fully metallic
-                            child.material.roughness = 0.4;  // Slightly rougher for a silver look
+                            child.material.roughness = 0.05;  // Slightly rougher for a silver look
                             child.material.emissive = new THREE.Color(0x0); // No emissive (glowing)
                             ////child.material.envMap = envMap; // Apply environment map for reflections .. without this it's darker and with sun on the ring.. it's better without this line as then it shows HD reflection of the background image but it's darker
-                            child.material.envMapIntensity = 1; // Lower reflection intensity for a silver look
+                            child.material.envMapIntensity = 3; // Lower reflection intensity for a silver look
                             child.material.clearcoat = 0; // No extra shine
                             child.material.clearcoatRoughness = 0; // Smooth clearcoat
                             child.material.reflectivity = 0.5;  // Moderate reflectivity
